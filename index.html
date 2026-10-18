@@ -225,18 +225,20 @@ const silverKg = CONFIG.silver.thbPerKg * (1 - CONFIG.silver.discount);
 const r50 = n => Math.round(n / 50) * 50;   /* ปัดเป็นหลัก 50 บาทที่ใกล้ที่สุด */
 /* ราคา 99.99% ปัดเป็นหลักพัน แล้วราคาแต่ละเกรด = ราคา 99.99% × เปอร์เซ็นต์ ปัดหลัก 50 (แบบเดียวกับป้ายเดิมของร้าน) */
 const silverBase = Math.round(silverKg / 1000) * 1000;
+const fmtG = n => Number.isInteger(n) ? fmt0(n) : fmt2(n);   /* ราคาต่อกรัม: เลขกลมไม่มีจุด ถ้ามีเศษแสดงทศนิยม 2 ตำแหน่ง */
+
 document.getElementById("silverHero").innerHTML = `
   <span class="purity">99.99<small>%</small></span>
   <div class="kg-line"><div class="label">ราคาต่อกิโลกรัม</div>
     <div><span class="num">${fmt0(silverBase)}</span><span class="unit-inline">บาท / กก.</span></div></div>
   <div class="g-line"><span class="label">ราคาต่อกรัม</span>
-    <span><span class="num">${fmt0(silverBase/1000)}</span><span class="unit-inline">บาท / กรัม</span></span></div>`;
+    <span><span class="num">${fmtG(silverBase/1000)}</span><span class="unit-inline">บาท / กรัม</span></span></div>`;
 document.getElementById("grades").innerHTML = CONFIG.silver.grades.map(p => {
   const kg = r50(silverBase * p / 100);
   return `<article class="grade">
     <span class="tag">${p}<small>%</small></span>
     <div class="kg"><span class="num">${fmt0(kg)}</span><span class="unit-inline">บาท / กก.</span></div>
-    <div class="g">กรัมละ <span class="num">${fmt0(kg/1000)}</span> บาท</div>
+    <div class="g">กรัมละ <span class="num">${fmtG(kg/1000)}</span> บาท</div>
   </article>`;
 }).join("");
 
