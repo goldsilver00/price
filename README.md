@@ -1,5 +1,7 @@
 # LH หลอมทอง price board
 
-จอแสดงราคารับซื้อโลหะมีค่า: https://goldsilver00.github.io/price/
+TV page: https://goldsilver00.github.io/price/
 
-ราคาอยู่ในตัวแปร `CONFIG` ใน `index.html`
+- board.html: the board design and prices (edit the CONFIG object)
+- render.py: run `python3 render.py` after editing board.html; it makes pgm.jpg and silver.jpg
+- index.html: what the TV opens; shows the images full screen, rotates pages, draws the live clock
