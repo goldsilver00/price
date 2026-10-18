@@ -60,7 +60,7 @@ async function start(){
   images = (await Promise.all(list.map(load))).filter(Boolean);
   draw();
   setInterval(draw, 15000);
-  if (images.length > 1) setInterval(() => { cur = (cur + 1) % images.length; draw(); }, ROTATE_SECONDS * 1000);
+  setInterval(() => { if (images.length > 1){ cur = (cur + 1) % images.length; draw(); } }, ROTATE_SECONDS * 1000);
 }
 start();
 
@@ -72,8 +72,16 @@ let idleT;
 const wake = () => { document.body.classList.remove("idle"); clearTimeout(idleT); idleT = setTimeout(() => document.body.classList.add("idle"), 3000); };
 ["mousemove","touchstart","keydown"].forEach(ev => document.addEventListener(ev, wake, {passive:true}));
 wake();
-/* reload every 10 minutes (skipping the browser cache) so the TV gets the morning price update */
-setTimeout(() => location.replace(location.pathname + "?t=" + Date.now()), 10 * 60 * 1000);
+/* every 10 minutes fetch fresh images in the background (no page reload, so fullscreen stays on) */
+async function refreshImages(){
+  const t = Date.now();
+  let list = null;
+  try{ const r = await fetch("pages.txt?t=" + t, {cache:"no-store"}); if (r.ok) list = (await r.text()).split(/\s+/).filter(Boolean); }catch(e){}
+  if (!list || !list.length) return;   /* offline: keep showing the current images */
+  const fresh = (await Promise.all(list.map(src => new Promise(ok => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => ok(null); i.src = src + "?t=" + t; })))).filter(Boolean);
+  if (fresh.length === list.length){ images = fresh; if (cur >= images.length) cur = 0; draw(); }
+}
+setInterval(refreshImages, 10 * 60 * 1000);
 try{ navigator.wakeLock && navigator.wakeLock.request("screen").catch(()=>{}); }catch(e){}
 </script>
 </body>
