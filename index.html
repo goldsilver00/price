@@ -135,6 +135,13 @@ body.idle{cursor:none}
 .silver .board{gap:24px}
 .grade .kg,.hero .kg-line>div,.g-line>span{white-space:nowrap}
 .grade .kg .num{font-size:62px}
+/* roomier silver cards for TV browsers */
+.grade{padding:22px 26px;gap:10px}
+.grade .tag{font-size:30px}
+.grade .kg .num{font-size:56px}
+.grade .g .num{font-size:34px}
+.hero .kg-line .num{font-size:112px}
+.hero .g-line .num{font-size:64px}
 </style>
 </head>
 <body>
@@ -284,7 +291,7 @@ const wake = () => { document.body.classList.remove("idle"); clearTimeout(idleT)
 ["mousemove","touchstart","keydown"].forEach(ev => document.addEventListener(ev, wake, {passive:true}));
 wake();
 /* reload every 10 minutes so the TV picks up the daily price update */
-setTimeout(() => location.reload(), 10 * 60 * 1000);
+setTimeout(() => location.replace(location.pathname + "?t=" + Date.now()), 10 * 60 * 1000);   /* bypass browser cache */
 try{ navigator.wakeLock && navigator.wakeLock.request("screen").catch(()=>{}); }catch(e){}
 
 /* scale the 1920x1080 canvas to the screen, centred */
