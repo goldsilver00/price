@@ -119,6 +119,10 @@ body.idle{cursor:none}
   @keyframes rise{from{transform:translateY(14px)}to{transform:none}}
 }
 @media (prefers-reduced-motion:reduce){.page{transition:none}}
+/* keep everything inside the 1080px canvas */
+.metals,.ag-grid,.grades{min-height:0}
+.metal,.hero,.grade{min-height:0;overflow:hidden}
+.silver .board{gap:24px}
 </style>
 </head>
 <body>
