@@ -48,14 +48,15 @@ function load(src, t){
 
 const SILVER_GRADES = [95, 92.5, 90, 70, 50, 30];
 const r50 = n => Math.round(n / 50) * 50;
-const fmtKg = n => Math.round(n).toLocaleString("en-US");
-const fmtG = n => Number.isInteger(n) ? n.toLocaleString("en-US") : n.toLocaleString("en-US", {minimumFractionDigits:2, maximumFractionDigits:2});
+const fmt2dp = n => Number.isInteger(n) ? n.toLocaleString("en-US") : n.toLocaleString("en-US", {minimumFractionDigits:2, maximumFractionDigits:2});
+const fmtKg = n => fmt2dp(Math.round(n * 100) / 100);
+const fmtG = n => fmt2dp(Math.round(n * 100) / 100);
 let silverBase = null, silverLayout = null, pgmImg = null, silverImg = null, sheetUrl = "";
 
-/* silver: the shop types the 99.99% price; every grade = that x percent, rounded to 50 baht */
+/* silver: the shop types the 99.99% price; every grade = that x percent (no rounding) */
 function silverValues(){
   const v = {"kg:99.99": silverBase, "g:99.99": silverBase / 1000};
-  SILVER_GRADES.forEach(p => { const kg = r50(silverBase * p / 100); v["kg:" + p] = kg; v["g:" + p] = kg / 1000; });
+  SILVER_GRADES.forEach(p => { const kg = Math.round(silverBase * p) / 100; v["kg:" + p] = kg; v["g:" + p] = kg / 1000; });
   const out = {}; for (const k in v) out[k] = k.startsWith("kg:") ? fmtKg(v[k]) : fmtG(v[k]);
   return out;
 }

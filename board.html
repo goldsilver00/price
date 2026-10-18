@@ -258,7 +258,7 @@ document.getElementById("silverHero").innerHTML = `
   <div class="g-line"><span class="label">ราคาต่อกรัม</span>
     <span data-line="right"><span class="num" data-v="g:99.99">${fmtG(silverBase/1000)}</span><span class="unit-inline">บาท / กรัม</span></span></div>`;
 document.getElementById("grades").innerHTML = CONFIG.silver.grades.map(p => {
-  const kg = r50(silverBase * p / 100);
+  const kg = Math.round(silverBase * p) / 100;   /* ไม่ปัดเศษ */
   return `<article class="grade">
     <span class="tag">${p}<small>%</small></span>
     <div class="kg" data-line="left"><span class="num" data-v="kg:${p}">${fmt0(kg)}</span><span class="unit-inline">บาท / กก.</span></div>
