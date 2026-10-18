@@ -144,6 +144,7 @@ body.idle{cursor:none}
 .hero .g-line .num{font-size:64px}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .render .clock .time,.render .clock .date{visibility:hidden}
+.render-blank #pageSilver [data-line] > *{visibility:hidden}
 </style>
 </head>
 <body>
@@ -206,7 +207,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
      thbPerGram = ราคาบาทต่อกรัมจาก GoldBroker, usdPerGram = ราคาดอลลาร์ต่อกรัมจาก Kitco (แปลงเป็นบาทด้วย fx อัตโนมัติ)
      discount = หักกี่ %
    หน้าเงิน:
-     silver.thbPerKg = ราคาบาทต่อกิโลกรัมจาก GoldBroker, silver.discount = หักกี่ %
+     silver.pricePerKg = ราคาเงิน 99.99% ต่อกิโลที่ร้านกำหนดเอง (บนทีวีอ่านจากตารางที่ร้านกรอก)
      ราคาแต่ละเกรด = ราคาเงินหลังหัก × เปอร์เซ็นต์ (99.99% ใช้ราคาเต็ม)
    showSilver = เปิด/ปิดหน้าราคาเงิน, rotateSeconds = เปลี่ยนหน้าทุกกี่วินาที */
 const CONFIG = {
@@ -218,9 +219,9 @@ const CONFIG = {
   metals: [
     { th:"แพลตินัม",  en:"Platinum",  sym:"Pt", z:78, thbPerGram:1756.80 },
     { th:"แพลเลเดียม", en:"Palladium", sym:"Pd", z:46, thbPerGram:1197.87 },
-    { th:"โรเดียม",    en:"Rhodium",   sym:"Rh", z:45, usdPerGram:273.28 }
+    { th:"โรเดียม",    en:"Rhodium",   sym:"Rh", z:45, usdPerGram:273.28, discount:0.40 }
   ],
-  silver: { thbPerKg: 61182.87, discount: 0.10, grades: [95, 92.5, 90, 70, 50, 30] }
+  silver: { pricePerKg: 55000, grades: [95, 92.5, 90, 70, 50, 30] }
 };
 
 const fmt2 = n => n.toLocaleString("th-TH",{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -229,7 +230,7 @@ document.querySelectorAll(".asof").forEach(el => el.textContent = CONFIG.asOf);
 
 /* page 1 */
 const baseTHB = m => m.thbPerGram ?? m.usdPerGram * CONFIG.fx;
-const net = m => Math.round(baseTHB(m) * (1 - CONFIG.discount) * 100) / 100;
+const net = m => Math.round(baseTHB(m) * (1 - (m.discount ?? CONFIG.discount)) * 100) / 100;   /* ส่วนลดแยกรายโลหะได้ */
 document.getElementById("metals").innerHTML = CONFIG.metals.map(m => `
   <article class="metal">
     <div class="band">
@@ -244,24 +245,24 @@ document.getElementById("metals").innerHTML = CONFIG.metals.map(m => `
   </article>`).join("");
 
 /* page 2 */
-const silverKg = CONFIG.silver.thbPerKg * (1 - CONFIG.silver.discount);
+
 const r50 = n => Math.round(n / 50) * 50;   /* ปัดเป็นหลัก 50 บาทที่ใกล้ที่สุด */
 /* ราคา 99.99% ปัดเป็นหลักพัน แล้วราคาแต่ละเกรด = ราคา 99.99% × เปอร์เซ็นต์ ปัดหลัก 50 (แบบเดียวกับป้ายเดิมของร้าน) */
-const silverBase = Math.round(silverKg / 1000) * 1000;
+const silverBase = CONFIG.silver.pricePerKg;   /* ราคา 99.99% ที่ร้านกรอกเอง */
 const fmtG = n => Number.isInteger(n) ? fmt0(n) : fmt2(n);   /* ราคาต่อกรัม: เลขกลมไม่มีจุด ถ้ามีเศษแสดงทศนิยม 2 ตำแหน่ง */
 
 document.getElementById("silverHero").innerHTML = `
   <span class="purity">99.99<small>%</small></span>
   <div class="kg-line"><div class="label">ราคาต่อกิโลกรัม</div>
-    <div><span class="num">${fmt0(silverBase)}</span><span class="unit-inline">บาท / กก.</span></div></div>
+    <div data-line="left"><span class="num" data-v="kg:99.99">${fmt0(silverBase)}</span><span class="unit-inline">บาท / กก.</span></div></div>
   <div class="g-line"><span class="label">ราคาต่อกรัม</span>
-    <span><span class="num">${fmtG(silverBase/1000)}</span><span class="unit-inline">บาท / กรัม</span></span></div>`;
+    <span data-line="right"><span class="num" data-v="g:99.99">${fmtG(silverBase/1000)}</span><span class="unit-inline">บาท / กรัม</span></span></div>`;
 document.getElementById("grades").innerHTML = CONFIG.silver.grades.map(p => {
   const kg = r50(silverBase * p / 100);
   return `<article class="grade">
     <span class="tag">${p}<small>%</small></span>
-    <div class="kg"><span class="num">${fmt0(kg)}</span><span class="unit-inline">บาท / กก.</span></div>
-    <div class="g">กรัมละ <span class="num">${fmtG(kg/1000)}</span> บาท</div>
+    <div class="kg" data-line="left"><span class="num" data-v="kg:${p}">${fmt0(kg)}</span><span class="unit-inline">บาท / กก.</span></div>
+    <div class="g" data-line="left"><span class="glbl">กรัมละ</span> <span class="num" data-v="g:${p}">${fmtG(kg/1000)}</span> <span class="glbl">บาท</span></div>
   </article>`;
 }).join("");
 
