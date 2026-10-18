@@ -222,14 +222,15 @@ document.getElementById("metals").innerHTML = CONFIG.metals.map(m => `
 
 /* page 2 */
 const silverKg = CONFIG.silver.thbPerKg * (1 - CONFIG.silver.discount);
+const r50 = n => Math.round(n / 50) * 50;   /* ราคาเงินต่อกิโลปัดเป็นหลัก 50 บาทที่ใกล้ที่สุด */
 document.getElementById("silverHero").innerHTML = `
   <span class="purity">99.99<small>%</small></span>
   <div class="kg-line"><div class="label">ราคาต่อกิโลกรัม</div>
-    <div><span class="num">${fmt0(silverKg)}</span><span class="unit-inline">บาท / กก.</span></div></div>
+    <div><span class="num">${fmt0(r50(silverKg))}</span><span class="unit-inline">บาท / กก.</span></div></div>
   <div class="g-line"><span class="label">ราคาต่อกรัม</span>
-    <span><span class="num">${fmt0(silverKg/1000)}</span><span class="unit-inline">บาท / กรัม</span></span></div>`;
+    <span><span class="num">${fmt0(r50(silverKg)/1000)}</span><span class="unit-inline">บาท / กรัม</span></span></div>`;
 document.getElementById("grades").innerHTML = CONFIG.silver.grades.map(p => {
-  const kg = silverKg * p / 100;
+  const kg = r50(silverKg * p / 100);
   return `<article class="grade">
     <span class="tag">${p}<small>%</small></span>
     <div class="kg"><span class="num">${fmt0(kg)}</span><span class="unit-inline">บาท / กก.</span></div>
