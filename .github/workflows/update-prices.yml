@@ -1,0 +1,51 @@
+name: Daily price update
+
+on:
+  schedule:
+    # Bangkok = UTC+7. First try 07:50; the later runs only act if the first one failed.
+    - cron: "50 0 * * *"
+    - cron: "20 1 * * *"
+    - cron: "20 2 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Update even if today's date is already on the board"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: price-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install tools
+        run: |
+          pip install requests playwright
+          python -m playwright install --with-deps chromium
+      - name: Update prices
+        run: |
+          FLAGS=""
+          if [ "${{ github.event_name }}" != "schedule" ]; then FLAGS="--force"; fi
+          python update.py $FLAGS 2>&1 | tee run-log.txt
+          exit ${PIPESTATUS[0]}
+      - name: Save to the website
+        if: always()
+        run: |
+          git config user.name "goldsilver00"
+          git config user.email "goldsilver00@users.noreply.github.com"
+          if [ "${{ github.ref_name }}" != "test-update" ]; then rm -f run-log.txt; fi
+          git add -A
+          if git diff --cached --quiet; then echo "No changes."; exit 0; fi
+          git commit -m "Update prices $(TZ=Asia/Bangkok date +%F)"
+          git push
