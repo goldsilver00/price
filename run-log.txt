@@ -1,0 +1,9 @@
+Kitco platinum bid $1650.0/oz (2026-10-18T22:59:57.5Z)
+Kitco palladium bid $1112.0/oz (2026-10-18T22:59:57.527Z)
+Kitco rhodium bid $273.28/g (Oct 18, 2026 - 23:00 NY)
+USD/THB 33.42 from open.er-api.com Mon, 19 Oct 2026 00:02:32 +0000
+platinum: 1406 -> 1418 baht/g (+0.9% change, 20% off)
+palladium: 952 -> 956 baht/g (+0.4% change, 20% off)
+rhodium: 5477 -> 5480 baht/g (+0.1% change, 40% off)
+rendered pgm.jpg, silver-blank.jpg, silver-layout.json
+Updated board.html and images for 19 ต.ค. 2569
