@@ -49,7 +49,7 @@ body::before{content:"";position:fixed;inset:0 0 auto 0;height:calc(var(--u)*100
 .clock{text-align:right;font:500 calc(var(--u)*12)/1.25 "Anuphan",sans-serif;color:#f6dfc0}
 .clock .num{display:block;font-size:calc(var(--u)*20);font-weight:700;color:#fff}
 
-main{flex:1;min-height:0;margin-top:calc(var(--u)*-30);padding:0 calc(var(--u)*12) calc(var(--u)*8);
+main{position:relative;z-index:1;flex:1;min-height:0;margin-top:calc(var(--u)*-30);padding:0 calc(var(--u)*12) calc(var(--u)*8);
   display:flex;flex-direction:column;gap:calc(var(--u)*10)}
 .card{background:var(--card);border-radius:calc(var(--u)*16);box-shadow:0 1px 0 var(--line),0 calc(var(--u)*8) calc(var(--u)*24) rgba(74,25,28,.08);overflow:hidden}
 .pill{font:700 calc(var(--u)*12) "Anuphan",sans-serif;color:#fff;background:var(--red);border-radius:999px;padding:calc(var(--u)*4) calc(var(--u)*10);white-space:nowrap}
@@ -59,11 +59,11 @@ main{flex:1;min-height:0;margin-top:calc(var(--u)*-30);padding:0 calc(var(--u)*1
 .row{display:flex;align-items:center;justify-content:space-between;gap:calc(var(--u)*8)}
 
 /* gold */
-.gold{border:1px solid rgba(255,190,85,.6);flex:1.25;display:flex;flex-direction:column;justify-content:center;
-  padding:calc(var(--u)*12) calc(var(--u)*16) 0}
+.gold{border:1px solid rgba(255,190,85,.6);flex:1.25;display:flex;flex-direction:column;padding:0}
+.gbody{flex:1;display:flex;flex-direction:column;justify-content:center;padding:calc(var(--u)*10) calc(var(--u)*16) calc(var(--u)*4)}
 .gold .price{display:flex;align-items:baseline;gap:calc(var(--u)*8);margin:calc(var(--u)*4) 0 calc(var(--u)*2)}
 .gold .price .num{font-size:calc(var(--u)*54);line-height:1;color:var(--burgundy)}
-.gold .meta{display:flex;align-items:center;gap:calc(var(--u)*7);margin:calc(var(--u)*8) calc(var(--u)*-16) 0;padding:calc(var(--u)*8) calc(var(--u)*16);
+.gold .meta{display:flex;align-items:center;gap:calc(var(--u)*7);margin:0;padding:calc(var(--u)*8) calc(var(--u)*16);
   border-top:1px dashed var(--line);background:#fffaf0;font:500 calc(var(--u)*12) "Anuphan",sans-serif;color:var(--muted)}
 .live{width:calc(var(--u)*7);height:calc(var(--u)*7);border-radius:50%;background:#2e9d5b;flex:none;animation:pulse 2s infinite}
 .live.off{background:#c9b6b0;animation:none}
@@ -106,8 +106,10 @@ main{flex:1;min-height:0;margin-top:calc(var(--u)*-30);padding:0 calc(var(--u)*1
 
   <main>
     <section class="card gold">
-      <div class="row"><div class="label">ทองคำแท่ง 96.5%<small>สมาคมค้าทองคำ</small></div><span class="pill">รับซื้อ</span></div>
-      <div class="price"><span class="num skeleton" id="goldBuy">00,000</span><span class="unit">บาท / บาททองคำ</span></div>
+      <div class="gbody">
+        <div class="row"><div class="label">ทองคำแท่ง 96.5%<small>สมาคมค้าทองคำ</small></div><span class="pill">รับซื้อ</span></div>
+        <div class="price"><span class="num skeleton" id="goldBuy">00,000</span><span class="unit">บาท / บาททองคำ</span></div>
+      </div>
       <div class="meta"><span class="live off" id="goldLive"></span><span id="goldMeta">กำลังโหลดราคา…</span></div>
     </section>
 
