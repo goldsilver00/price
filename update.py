@@ -7,6 +7,7 @@ Silver is typed by the shop in the Google Sheet and is not touched here.
 Usage:  python update.py            normal run (skips if board already shows today's date)
         python update.py --force    update even if today's date is already on the board
         python update.py --dry-run  fetch and calculate, print the result, change nothing
+        python update.py --json     only rewrite prices.json (for the mobile page) from board.html
 Exit code 1 = something looked wrong; the board is left as it was.
 """
 import datetime as dt
@@ -122,6 +123,19 @@ def shown(usd_per_gram, fx, discount, thb_per_gram=None):
     return half_up(half_up(base * (1 - discount) * 100) / 100)  # same rounding as the page
 
 
+def write_prices_json(s):
+    """prices.json = the exact per-gram prices shown on the TV board, for the mobile page."""
+    fx, metals = read_config(s)
+    as_of = re.search(r'asOf: "([^"]*)"', s).group(1)
+    names = {"platinum": ("แพลตินัม", "Platinum", "Pt"), "palladium": ("แพลเลเดียม", "Palladium", "Pd"),
+             "rhodium": ("โรเดียม", "Rhodium", "Rh")}
+    out = {"asOf": as_of, "metals": [
+        {"key": k, "th": names[k][0], "en": names[k][1], "sym": names[k][2],
+         "pricePerGram": shown(m["usdPerGram"], fx, m["discount"], m["thbPerGram"])} for k, m in metals.items()]}
+    (HERE / "prices.json").write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    return out
+
+
 def thai_date(d):
     return f"{d.day} {TH_MONTHS[d.month - 1]} {d.year + 543}"
 
@@ -129,6 +143,9 @@ def thai_date(d):
 def main():
     force = "--force" in sys.argv
     dry = "--dry-run" in sys.argv
+    if "--json" in sys.argv:
+        log(write_prices_json(BOARD.read_text(encoding="utf-8")))
+        return 0
     today = dt.datetime.now(dt.timezone(dt.timedelta(hours=7))).date()
     s = BOARD.read_text(encoding="utf-8")
     as_of = thai_date(today)
@@ -179,6 +196,7 @@ def main():
     BOARD.write_text(s, encoding="utf-8")
 
     subprocess.run([sys.executable, str(HERE / "render.py")], check=True)
+    write_prices_json(s)
     (HERE / "last-update.txt").write_text(
         f"{as_of}  fx {fx:.2f} ({fx_src})\n"
         + "".join(f"{k}: {a} baht/g\n" for k, (_, a) in summary.items()), encoding="utf-8")
