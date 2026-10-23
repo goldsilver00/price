@@ -9,13 +9,11 @@ jobs:
       - uses: actions/checkout@v4
       - run: |
           mkdir -p dbg
-          U="https://www.goldtraders.or.th/api/GoldPrices/Latest?readjson=false"
-          curl -sS -m 30 -o dbg/curl1.txt -w "%{http_code}\n" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36" -H "Referer: https://www.goldtraders.or.th/" "$U" > dbg/curl1.code 2>&1 || true
-          curl -sS -m 30 -o dbg/curl2.txt -w "%{http_code}\n" "$U" > dbg/curl2.code 2>&1 || true
-          curl -sS -m 30 -o dbg/home.txt -w "%{http_code}\n" https://www.goldtraders.or.th/ > dbg/home.code 2>&1 || true
-          head -c 3000 dbg/curl1.txt > dbg/c1h.txt || true
-          rm -f dbg/home.txt
-          pip install requests >/dev/null; python gold.py > dbg/gold.log 2>&1 || true
-          cp gold.json dbg/ 2>/dev/null || true
+          for u in "https://api.chnwt.dev/thai-gold-api/latest" "https://www.goldtraders.or.th/api/GoldPrices/Latest?readjson=false" "https://goldtraders.or.th/api/GoldPrices/Latest?readjson=false"; do
+            echo "== $u" >> dbg/out.txt
+            curl -sS -m 30 -A "Mozilla/5.0" -w "
+HTTP %{http_code}
+" "$u" 2>&1 | head -c 1500 >> dbg/out.txt; echo >> dbg/out.txt
+          done
           git config user.name bot; git config user.email bot@x
           git checkout -b gold-debug; git add -f dbg; git commit -m dbg; git push -f origin gold-debug
