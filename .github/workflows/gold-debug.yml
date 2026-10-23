@@ -9,11 +9,10 @@ jobs:
       - uses: actions/checkout@v4
       - run: |
           mkdir -p dbg
-          for u in "https://api.chnwt.dev/thai-gold-api/latest" "https://www.goldtraders.or.th/api/GoldPrices/Latest?readjson=false" "https://goldtraders.or.th/api/GoldPrices/Latest?readjson=false"; do
+          for u in "https://api.chnwt.dev/thai-gold-api/latest" "https://goldtraders.or.th/api/GoldPrices/Latest?readjson=false"; do
             echo "== $u" >> dbg/out.txt
-            curl -sS -m 30 -A "Mozilla/5.0" -w "
-HTTP %{http_code}
-" "$u" 2>&1 | head -c 1500 >> dbg/out.txt; echo >> dbg/out.txt
+            curl -sS -m 30 -A "Mozilla/5.0" -o dbg/body.txt -w "HTTP %{http_code} " "$u" >> dbg/out.txt 2>&1 || true
+            head -c 1200 dbg/body.txt >> dbg/out.txt; echo >> dbg/out.txt
           done
           git config user.name bot; git config user.email bot@x
-          git checkout -b gold-debug; git add -f dbg; git commit -m dbg; git push -f origin gold-debug
+          git checkout -b gold-debug; git add -f dbg/out.txt; git commit -m dbg; git push -f origin gold-debug
