@@ -19,133 +19,118 @@
   --burgundy:#6d0c13; --wine:#4a191c; --red:#a51f26; --gold:#ffde59; --amber:#ffbe55;
   --paper:#fbf6ec; --card:#ffffff; --ink:#2a1214; --muted:#7a6264; --line:#efe3d3;
   color-scheme:light;
+  /* one unit that shrinks with the screen so everything always fits without scrolling
+     (design size 375 x 660) */
+  --u: min(calc(100vw / 375), calc(100vh / 660), 1.25px);
 }
+@supports (height:100dvh){ :root{ --u: min(calc(100vw / 375), calc(100dvh / 660), 1.25px); } }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:"Anuphan","Public Sans",Tahoma,sans-serif;
-  -webkit-font-smoothing:antialiased}
-.num{font-family:"Public Sans","Anuphan",sans-serif;font-weight:800;font-variant-numeric:tabular-nums lining-nums;letter-spacing:-.01em}
-.en{font-family:"Bodoni Moda",Georgia,serif;font-weight:600}
+html,body{margin:0;height:100%;overflow:hidden;-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:"Anuphan","Public Sans",Tahoma,sans-serif;-webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;align-items:center}
+.u{font-size:calc(var(--u) * 14)}
+.num{font-family:"Public Sans","Anuphan",sans-serif;font-weight:800;font-variant-numeric:tabular-nums lining-nums;letter-spacing:-.01em;white-space:nowrap}
+.app{width:100%;max-width:calc(var(--u) * 375);height:100%;display:flex;flex-direction:column;
+  padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+.v{display:block;line-height:1.05}
 
 /* header */
-header{position:relative;overflow:hidden;color:#fff;
-  background:radial-gradient(120% 90% at 85% -10%,#a51f26 0%,rgba(165,31,38,0) 60%),linear-gradient(160deg,#6d0c13 0%,#4a191c 100%);
-  padding:calc(18px + env(safe-area-inset-top,0px)) 16px 64px}
-header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),var(--amber),transparent);opacity:.8}
-.head{max-width:520px;margin:0 auto;display:flex;align-items:center;gap:14px}
-.logo{width:72px;height:72px;border-radius:50%;flex:none;box-shadow:0 0 0 2px rgba(255,222,89,.55),0 8px 22px rgba(0,0,0,.3);background:#fff}
-.brand h1{margin:0;font:700 24px/1.15 "Anuphan",sans-serif;letter-spacing:.01em}
-.brand h1 b{color:var(--gold);font-family:"Bodoni Moda",serif;font-weight:700;margin-right:6px}
-.brand p{margin:3px 0 0;font:500 15px/1.3 "Anuphan",sans-serif;color:#f6dfc0}
-.clock{max-width:520px;margin:14px auto 0;display:flex;align-items:baseline;justify-content:space-between;
-  font:500 14px "Anuphan",sans-serif;color:#f6dfc0}
-.clock .num{font-size:22px;color:#fff;font-weight:700}
+header{position:relative;color:#fff;flex:none;
+  background:radial-gradient(120% 120% at 90% -20%,#a51f26 0%,rgba(165,31,38,0) 60%),linear-gradient(160deg,#6d0c13 0%,#4a191c 100%);
+  padding:calc(var(--u)*12) calc(var(--u)*16) calc(var(--u)*40);display:flex;align-items:center;gap:calc(var(--u)*11)}
+body::before{content:"";position:fixed;inset:0 0 auto 0;height:calc(var(--u)*100 + env(safe-area-inset-top,0px));
+  background:linear-gradient(160deg,#6d0c13 0%,#4a191c 100%);z-index:-1}
+.logo{width:calc(var(--u)*50);height:calc(var(--u)*50);border-radius:50%;flex:none;background:#fff;
+  box-shadow:0 0 0 calc(var(--u)*2) rgba(255,222,89,.55),0 calc(var(--u)*6) calc(var(--u)*16) rgba(0,0,0,.3)}
+.brand{flex:1;min-width:0}
+.brand h1{margin:0;font:700 calc(var(--u)*20)/1.15 "Anuphan",sans-serif}
+.brand h1 b{color:var(--gold);font-family:"Bodoni Moda",serif;font-weight:700;margin-right:calc(var(--u)*5)}
+.brand p{margin:calc(var(--u)*2) 0 0;font:500 calc(var(--u)*13)/1.2 "Anuphan",sans-serif;color:#f6dfc0}
+.clock{text-align:right;font:500 calc(var(--u)*12)/1.25 "Anuphan",sans-serif;color:#f6dfc0}
+.clock .num{display:block;font-size:calc(var(--u)*20);font-weight:700;color:#fff}
 
-main{max-width:520px;margin:-46px auto 0;padding:0 16px calc(28px + env(safe-area-inset-bottom,0px));position:relative}
-.card{background:var(--card);border-radius:20px;box-shadow:0 1px 0 var(--line),0 10px 30px rgba(74,25,28,.08);margin-bottom:16px;overflow:hidden}
-.sec{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:26px 4px 10px}
-.sec h2{margin:0;font:700 19px "Anuphan",sans-serif;color:var(--wine)}
-.sec span{font:500 13px "Anuphan",sans-serif;color:var(--muted);text-align:right;white-space:nowrap}
+main{flex:1;min-height:0;margin-top:calc(var(--u)*-30);padding:0 calc(var(--u)*12) calc(var(--u)*8);
+  display:flex;flex-direction:column;gap:calc(var(--u)*10)}
+.card{background:var(--card);border-radius:calc(var(--u)*16);box-shadow:0 1px 0 var(--line),0 calc(var(--u)*8) calc(var(--u)*24) rgba(74,25,28,.08);overflow:hidden}
+.pill{font:700 calc(var(--u)*12) "Anuphan",sans-serif;color:#fff;background:var(--red);border-radius:999px;padding:calc(var(--u)*4) calc(var(--u)*10);white-space:nowrap}
+.unit{font:600 calc(var(--u)*13) "Anuphan",sans-serif;color:var(--muted)}
+.label{font:700 calc(var(--u)*16)/1.2 "Anuphan",sans-serif;color:var(--wine)}
+.label small{font:600 calc(var(--u)*12) "Anuphan",sans-serif;color:var(--muted);margin-left:calc(var(--u)*4)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:calc(var(--u)*8)}
 
-/* gold hero */
-.gold{border:1px solid rgba(255,190,85,.55)}
-.gold .top{display:flex;justify-content:space-between;align-items:center;padding:16px 18px 0}
-.gold .label{font:700 18px "Anuphan",sans-serif;color:var(--wine)}
-.gold .label small{display:block;font:600 13px "Anuphan",sans-serif;color:var(--muted);margin-top:1px}
-.pill{font:700 13px "Anuphan",sans-serif;color:#fff;background:var(--red);border-radius:999px;padding:5px 12px;white-space:nowrap}
-.gold .price{padding:6px 18px 4px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.gold .price .num{font-size:clamp(46px,14vw,60px);line-height:1.05;color:var(--burgundy)}
-.gold .price .unit{font:600 15px "Anuphan",sans-serif;color:var(--muted)}
-.gold .meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 18px 14px;font:500 13.5px "Anuphan",sans-serif;color:var(--muted);
-  border-top:1px dashed var(--line);margin-top:10px;background:linear-gradient(180deg,#fffaf0,#fff)}
-.live{width:8px;height:8px;border-radius:50%;background:#2e9d5b;box-shadow:0 0 0 0 rgba(46,157,91,.5);animation:pulse 2s infinite;flex:none}
+/* gold */
+.gold{border:1px solid rgba(255,190,85,.6);flex:1.25;display:flex;flex-direction:column;justify-content:center;
+  padding:calc(var(--u)*12) calc(var(--u)*16) 0}
+.gold .price{display:flex;align-items:baseline;gap:calc(var(--u)*8);margin:calc(var(--u)*4) 0 calc(var(--u)*2)}
+.gold .price .num{font-size:calc(var(--u)*54);line-height:1;color:var(--burgundy)}
+.gold .meta{display:flex;align-items:center;gap:calc(var(--u)*7);margin:calc(var(--u)*8) calc(var(--u)*-16) 0;padding:calc(var(--u)*8) calc(var(--u)*16);
+  border-top:1px dashed var(--line);background:#fffaf0;font:500 calc(var(--u)*12) "Anuphan",sans-serif;color:var(--muted)}
+.live{width:calc(var(--u)*7);height:calc(var(--u)*7);border-radius:50%;background:#2e9d5b;flex:none;animation:pulse 2s infinite}
 .live.off{background:#c9b6b0;animation:none}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,157,91,.45)}70%{box-shadow:0 0 0 8px rgba(46,157,91,0)}100%{box-shadow:0 0 0 0 rgba(46,157,91,0)}}
-
-/* metals */
-.metal{display:flex;align-items:center;gap:14px;padding:16px 18px}
-.metal + .metal{border-top:1px solid var(--line)}
-.sym{width:50px;height:50px;border-radius:14px;flex:none;display:grid;place-items:center;
-  background:linear-gradient(150deg,#a51f26,#6d0c13);color:#ffe9b0;font:700 20px "Bodoni Moda",serif;box-shadow:inset 0 0 0 1px rgba(255,222,89,.35)}
-.metal .name{flex:1;min-width:0}
-.metal .name b{display:block;font:700 18px/1.2 "Anuphan",sans-serif;color:var(--ink)}
-.metal .name i{display:block;font-style:normal;font-size:14px;color:var(--muted);margin-top:2px}
-.metal .val{text-align:right}
-.metal .val .num{display:block;font-size:30px;line-height:1.05;color:var(--burgundy)}
-.metal .val small{font:500 12.5px "Anuphan",sans-serif;color:var(--muted)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,157,91,.45)}70%{box-shadow:0 0 0 calc(var(--u)*7) rgba(46,157,91,0)}100%{box-shadow:0 0 0 0 rgba(46,157,91,0)}}
 
 /* silver */
-.silver .main{padding:16px 18px 14px;background:linear-gradient(160deg,#f7f3f2 0%,#ffffff 60%)}
-.silver .main .label{display:flex;justify-content:space-between;align-items:center;font:700 18px "Anuphan",sans-serif;color:var(--wine)}
-.silver .main .label .pill{background:var(--wine)}
-.silver .main .kg{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:6px}
-.silver .main .kg .num{font-size:clamp(40px,12vw,52px);line-height:1.05;color:var(--burgundy)}
-.unit{font:600 15px "Anuphan",sans-serif;color:var(--muted)}
-.silver .main .g{margin-top:2px;font:600 15px "Anuphan",sans-serif;color:var(--muted)}
-.silver .main .g .num{font-size:19px;color:var(--ink);font-weight:700}
-.grades{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
-.grade{padding:12px 16px;border-bottom:1px solid var(--line)}
-.grade:nth-child(odd){border-right:1px solid var(--line)}
-.grade:nth-last-child(-n+2){border-bottom:0}
-.grade .p{font:700 14px "Anuphan",sans-serif;color:var(--red)}
-.grade .k{display:block;font-size:22px;color:var(--ink);margin-top:2px}
-.grade .k small,.grade .gg{font:500 12.5px "Anuphan",sans-serif;color:var(--muted)}
-.grade .gg .num{font-size:13.5px;font-weight:700;color:var(--ink)}
+.silver{flex:1;display:flex;flex-direction:column;justify-content:center;padding:calc(var(--u)*12) calc(var(--u)*16);
+  background:linear-gradient(160deg,#f6f2f1 0%,#ffffff 65%)}
+.silver .pill{background:var(--wine)}
+.silver .prices{display:flex;align-items:flex-end;justify-content:space-between;gap:calc(var(--u)*10);margin-top:calc(var(--u)*6)}
+.silver .kg .num{font-size:calc(var(--u)*38);color:var(--burgundy)}
+.silver .g{text-align:right;padding-left:calc(var(--u)*12);border-left:1px solid var(--line)}
+.silver .g .num{font-size:calc(var(--u)*26);color:var(--ink)}
 
-.note{margin:22px 4px 0;font:500 13px/1.6 "Anuphan",sans-serif;color:var(--muted);text-align:center}
-.note b{color:var(--wine)}
-.skeleton{color:transparent!important;background:linear-gradient(90deg,#f1e9df,#f9f4ee,#f1e9df);background-size:200% 100%;border-radius:8px;animation:sh 1.2s infinite linear}
+/* Pt Pd Rh */
+.sec{display:flex;align-items:baseline;justify-content:space-between;margin:calc(var(--u)*2) calc(var(--u)*4) calc(var(--u)*-4)}
+.sec b{font:700 calc(var(--u)*15) "Anuphan",sans-serif;color:var(--wine)}
+.sec span{font:500 calc(var(--u)*12) "Anuphan",sans-serif;color:var(--muted)}
+.metals{flex:1.05;display:grid;grid-template-columns:repeat(3,1fr);gap:calc(var(--u)*8)}
+.metal{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:calc(var(--u)*10) calc(var(--u)*4)}
+.sym{width:calc(var(--u)*34);height:calc(var(--u)*34);border-radius:calc(var(--u)*10);display:grid;place-items:center;
+  background:linear-gradient(150deg,#a51f26,#6d0c13);color:#ffe9b0;font:700 calc(var(--u)*15) "Bodoni Moda",serif}
+.metal b{font:700 calc(var(--u)*14)/1.2 "Anuphan",sans-serif;margin-top:calc(var(--u)*6)}
+.metal .num{font-size:calc(var(--u)*25);color:var(--burgundy);margin-top:calc(var(--u)*4)}
+.metal small{font:500 calc(var(--u)*11) "Anuphan",sans-serif;color:var(--muted)}
+
+.note{flex:none;margin:0;text-align:center;font:500 calc(var(--u)*11)/1.4 "Anuphan",sans-serif;color:var(--muted)}
+.skeleton{color:transparent!important;background:linear-gradient(90deg,#f1e9df,#f9f4ee,#f1e9df);background-size:200% 100%;border-radius:calc(var(--u)*6);animation:sh 1.2s infinite linear}
 @keyframes sh{to{background-position:-200% 0}}
 @media (prefers-reduced-motion:reduce){.live,.skeleton{animation:none}}
 </style>
 </head>
 <body>
-<header>
-  <div class="head">
-    <img class="logo" src="logo.png" alt="LH หลอมทอง" width="72" height="72">
-    <div class="brand">
-      <h1><b>LH</b>หลอมทอง</h1>
-      <p>ราคารับซื้อวันนี้</p>
-    </div>
-  </div>
-  <div class="clock"><span id="today">&nbsp;</span><span class="num" id="time">&nbsp;</span></div>
-</header>
+<div class="app">
+  <header>
+    <img class="logo" src="logo.png" alt="LH หลอมทอง">
+    <div class="brand"><h1><b>LH</b>หลอมทอง</h1><p>ราคารับซื้อวันนี้</p></div>
+    <div class="clock"><span class="num" id="time">&nbsp;</span><span id="today">&nbsp;</span></div>
+  </header>
 
-<main>
-  <!-- gold bar -->
-  <section class="card gold" aria-labelledby="goldLabel">
-    <div class="top">
-      <div class="label" id="goldLabel">ทองคำแท่ง 96.5%<small>ราคาสมาคมค้าทองคำ</small></div>
-      <span class="pill">รับซื้อ</span>
-    </div>
-    <div class="price"><span class="num skeleton" id="goldBuy">00,000</span><span class="unit">บาท / บาททองคำ</span></div>
-    <div class="meta"><span class="live off" id="goldLive"></span><span id="goldMeta">กำลังโหลดราคา…</span></div>
-  </section>
+  <main>
+    <section class="card gold">
+      <div class="row"><div class="label">ทองคำแท่ง 96.5%<small>สมาคมค้าทองคำ</small></div><span class="pill">รับซื้อ</span></div>
+      <div class="price"><span class="num skeleton" id="goldBuy">00,000</span><span class="unit">บาท / บาททองคำ</span></div>
+      <div class="meta"><span class="live off" id="goldLive"></span><span id="goldMeta">กำลังโหลดราคา…</span></div>
+    </section>
 
-  <!-- Pt Pd Rh -->
-  <div class="sec"><h2>โลหะมีค่า</h2><span id="metalDate"></span></div>
-  <section class="card" id="metals">
-    <div class="metal"><span class="sym">Pt</span><div class="name"><b>แพลตินัม</b><i class="en">Platinum</i></div><div class="val"><span class="num skeleton">0,000</span><small>บาท / กรัม</small></div></div>
-    <div class="metal"><span class="sym">Pd</span><div class="name"><b>แพลเลเดียม</b><i class="en">Palladium</i></div><div class="val"><span class="num skeleton">000</span><small>บาท / กรัม</small></div></div>
-    <div class="metal"><span class="sym">Rh</span><div class="name"><b>โรเดียม</b><i class="en">Rhodium</i></div><div class="val"><span class="num skeleton">0,000</span><small>บาท / กรัม</small></div></div>
-  </section>
+    <section class="card silver">
+      <div class="row"><div class="label">เงิน 99.99%</div><span class="pill">รับซื้อ</span></div>
+      <div class="prices">
+        <div class="kg"><span class="num v skeleton" id="sKg">00,000</span><span class="unit">บาท / กิโลกรัม</span></div>
+        <div class="g"><span class="num v skeleton" id="sG">00</span><span class="unit">บาท / กรัม</span></div>
+      </div>
+    </section>
 
-  <!-- silver -->
-  <div class="sec"><h2>เงิน</h2><span>ราคาต่อกิโลกรัม / ต่อกรัม</span></div>
-  <section class="card silver">
-    <div class="main">
-      <div class="label">เงิน 99.99%<span class="pill">รับซื้อ</span></div>
-      <div class="kg"><span class="num skeleton" id="sKg">00,000</span><span class="unit">บาท / กก.</span></div>
-      <div class="g"><span class="num" id="sG">–</span> บาท / กรัม</div>
-    </div>
-    <div class="grades" id="grades"></div>
-  </section>
+    <div class="sec"><b>ราคาต่อกรัม</b><span id="metalDate"></span></div>
+    <section class="metals" id="metals">
+      <div class="card metal"><span class="sym">Pt</span><b>แพลตินัม</b><span class="num v skeleton">0,000</span><small>บาท / กรัม</small></div>
+      <div class="card metal"><span class="sym">Pd</span><b>แพลเลเดียม</b><span class="num v skeleton">000</span><small>บาท / กรัม</small></div>
+      <div class="card metal"><span class="sym">Rh</span><b>โรเดียม</b><span class="num v skeleton">0,000</span><small>บาท / กรัม</small></div>
+    </section>
 
-  <p class="note">ราคาอัปเดตอัตโนมัติ ไม่ต้องรีเฟรชหน้า<br>ราคาอาจเปลี่ยนแปลงตามตลาด <b>กรุณาสอบถามหน้าร้านก่อนนำสินค้ามาขาย</b></p>
-</main>
+    <p class="note">ราคาอัปเดตอัตโนมัติ · ราคาอาจเปลี่ยนแปลงตามตลาด กรุณาสอบถามหน้าร้าน</p>
+  </main>
+</div>
 
 <script>
-const GRADES = [95, 92.5, 90, 70, 50, 30];
 const MIRROR = "https://api.chnwt.dev/thai-gold-api/latest";
 const TH_MONTHS = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
 const $ = id => document.getElementById(id);
@@ -158,7 +143,7 @@ async function getText(u){ const r = await fetch(bust(u), {cache:"no-store"}); i
 const setNum = (el, text) => { el.textContent = text; el.classList.remove("skeleton"); };
 
 /* clock (Bangkok time) */
-function bkk(){ const d = new Date(Date.now() + (new Date().getTimezoneOffset() + 420) * 60000); return d; }
+const bkk = () => new Date(Date.now() + (new Date().getTimezoneOffset() + 420) * 60000);
 function tick(){
   const d = bkk();
   $("time").textContent = String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0") + " น.";
@@ -195,30 +180,25 @@ async function refreshGold(){
 async function refreshMetals(){
   try{
     const p = JSON.parse(await getText("../prices.json"));
-    const rows = document.querySelectorAll("#metals .metal");
-    p.metals.forEach((m, i) => { if (rows[i]) setNum(rows[i].querySelector(".val .num"), fmt0(m.pricePerGram)); });
+    const cards = document.querySelectorAll("#metals .metal");
+    p.metals.forEach((m, i) => { if (cards[i]) setNum(cards[i].querySelector(".num"), fmt0(m.pricePerGram)); });
     $("metalDate").textContent = "ราคาประจำวัน " + p.asOf;
   }catch(e){}
 }
 
-/* silver: 99.99% per kg typed by the shop in the Google Sheet; other grades = price x percent */
+/* silver 99.99%: per kg typed by the shop in the Google Sheet */
 let sheetUrl = null, silverBase = null;
 function firstNumber(text){ const m = String(text).replace(/,/g, "").match(/\d+(\.\d+)?/); return m ? parseFloat(m[0]) : null; }
-function showSilver(){
-  setNum($("sKg"), fmt2dp(r2(silverBase)));
-  $("sG").textContent = fmt2dp(r2(silverBase / 1000));
-  $("grades").innerHTML = GRADES.map(p => {
-    const kg = Math.round(silverBase * p) / 100;
-    return `<div class="grade"><div class="p">เงิน ${p}%</div><span class="num k">${fmt2dp(r2(kg))} <small>บาท/กก.</small></span>` +
-           `<div class="gg"><span class="num">${fmt2dp(r2(kg / 1000))}</span> บาท/กรัม</div></div>`;
-  }).join("");
-}
 async function refreshSilver(){
   if (sheetUrl === null){ try{ sheetUrl = (await getText("../sheet-url.txt")).trim(); }catch(e){ sheetUrl = ""; } }
   let v = null;
   if (sheetUrl){ try{ v = firstNumber(await getText(sheetUrl)); }catch(e){} }
   if (v == null){ try{ v = JSON.parse(await getText("../silver.json")).pricePerKg; }catch(e){} }
-  if (v != null && v > 1000 && v < 10000000 && v !== silverBase){ silverBase = v; showSilver(); }
+  if (v != null && v > 1000 && v < 10000000 && v !== silverBase){
+    silverBase = v;
+    setNum($("sKg"), fmt2dp(r2(v)));
+    setNum($("sG"), fmt2dp(r2(v / 1000)));
+  }
 }
 
 function refreshAll(){ refreshGold(); refreshMetals(); refreshSilver(); }
