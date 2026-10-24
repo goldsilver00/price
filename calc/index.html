@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LH หลอมทอง | ประเมินราคา</title>
+<meta name="description" content="ประเมินราคารับซื้อทองรูปพรรณ ทองคำแท่ง และเงิน LH หลอมทอง ด้วยราคาทองเรียลไทม์">
+<meta property="og:title" content="LH หลอมทอง | ประเมินราคาทอง-เงิน">
+<meta property="og:description" content="เช็กราคารับซื้อเบื้องต้นได้ทันที ตามราคาสมาคมค้าทองคำ">
+<meta property="og:image" content="https://goldsilver00.github.io/price/m/logo.png">
+<meta name="theme-color" content="#6d0c13">
+<link rel="icon" href="https://goldsilver00.github.io/price/m/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,600;6..96,700&family=Public+Sans:wght@500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --burgundy:#6d0c13; --deep:#4a1a1d; --red:#a31f24;
+    --gold:#ffde59; --gold2:#ffbd59; --cream:#f1d9a8; --ink:#2a0709;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:#140607;color:#fff;font-family:'Noto Sans Thai','Public Sans',sans-serif;-webkit-tap-highlight-color:transparent}
+  .num{font-family:'Public Sans',sans-serif;font-variant-numeric:tabular-nums}
+  .page{
+    min-height:100vh;min-height:100dvh;max-width:440px;margin:0 auto;
+    padding:max(14px,env(safe-area-inset-top)) 16px max(14px,env(safe-area-inset-bottom));
+    display:flex;flex-direction:column;gap:11px;
+    background:radial-gradient(120% 60% at 50% 0%,#7d1118 0%,#3a0a0e 55%,#140607 100%);
+  }
+  /* header */
+  header{display:flex;align-items:center;gap:10px}
+  header img{width:42px;height:42px;border-radius:11px;border:1px solid var(--gold);object-fit:cover;background:var(--burgundy)}
+  .brand{flex:1;min-width:0}
+  .brand h1{margin:0;display:flex;align-items:baseline;gap:6px;line-height:1}
+  .brand .lh{font-family:'Bodoni Moda',serif;font-weight:700;font-size:22px;color:var(--gold)}
+  .brand .nm{font-weight:700;font-size:18px;color:var(--gold)}
+  .brand p{margin:3px 0 0;font-size:12px;color:var(--cream)}
+  .live{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:#a7f3c4;background:rgba(134,239,172,.12);padding:5px 9px;border-radius:999px;white-space:nowrap}
+  .live i{width:7px;height:7px;border-radius:50%;background:#4ade80;animation:pulse 1.8s infinite}
+  .live.off{color:#f0d6d6;background:rgba(255,255,255,.08)}.live.off i{background:#f0a0a0;animation:none}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.6)}70%,100%{box-shadow:0 0 0 7px rgba(74,222,128,0)}}
+
+  /* tabs */
+  .seg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:4px;border-radius:14px;background:rgba(0,0,0,.35);border:1px solid rgba(255,222,89,.18)}
+  .seg button{height:44px;border:0;border-radius:10px;background:transparent;color:var(--cream);font:inherit;font-weight:700;font-size:13.5px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;padding:0 2px;white-space:nowrap}
+  .seg button[aria-pressed="true"]{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--ink)}
+  .seg .dot{width:11px;height:11px;border-radius:50%;background:linear-gradient(135deg,#ffe27a,#c98a12)}
+  .seg .dot.bar{border-radius:2px;width:14px;height:9px}
+  .seg .dot.ag{background:linear-gradient(135deg,#f4f4f4,#9a9a9a)}
+
+  /* price strip */
+  .strip{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-radius:14px;background:rgba(74,26,29,.75);border:1px solid rgba(255,222,89,.2)}
+  .strip .lbl{font-size:12px;color:var(--cream)}
+  .strip .val{font-size:22px;font-weight:800;color:var(--gold);line-height:1.15}
+  .strip .val small{font-family:'Noto Sans Thai',sans-serif;font-size:12px;font-weight:500;color:var(--cream);margin-left:4px}
+  .strip .rt{text-align:right;font-size:11.5px;color:#d9b98a;line-height:1.45}
+
+  /* form */
+  .card{padding:14px;border-radius:18px;background:rgba(30,8,10,.6);border:1px solid rgba(255,222,89,.16);display:flex;flex-direction:column;gap:12px}
+  .field{display:flex;flex-direction:column;gap:6px}
+  .lab{font-size:13px;font-weight:600;color:var(--cream)}
+  .chips{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+  .chips.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .chips.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .chips .pg{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;line-height:1.15}
+  .chips .pg b{font-family:'Public Sans',sans-serif;font-size:15px}
+  .chips .pg small{font-family:'Noto Sans Thai',sans-serif;font-size:11.5px;font-weight:600;opacity:.85}
+  .chips.tall button{height:52px}
+  .chips button{position:relative;height:42px;border-radius:10px;border:1px solid rgba(255,222,89,.28);background:transparent;color:#fff;font-family:'Public Sans','Noto Sans Thai',sans-serif;font-weight:700;font-size:14px;cursor:pointer;padding:0 2px}
+  .chips button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+  .chips .star{position:absolute;top:-7px;right:-4px;font-size:9.5px;font-weight:700;padding:1px 5px;border-radius:999px;background:var(--red);color:#fff;font-family:'Noto Sans Thai',sans-serif}
+  .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+  .two.one{grid-template-columns:minmax(0,1fr)}
+  .inp{display:flex;align-items:center;height:50px;border-radius:12px;background:rgba(0,0,0,.4);border:1.5px solid rgba(255,222,89,.22);transition:border-color .15s}
+  .inp:focus-within{border-color:var(--gold)}
+  .inp input{flex:1;min-width:0;height:100%;padding:0 4px 0 14px;border:0;background:transparent;color:#fff;font-family:'Public Sans',sans-serif;font-weight:700;font-size:19px;outline:none}
+  .inp input::-webkit-outer-spin-button,.inp input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .inp input[type=number]{-moz-appearance:textfield;appearance:textfield}
+  .inp .u{padding-right:12px;font-size:13px;font-weight:600;color:var(--gold)}
+  .unit{display:flex;gap:2px;padding-right:5px}
+  .unit button{height:38px;padding:0 9px;border:0;border-radius:9px;background:transparent;color:var(--cream);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+  .unit button[aria-pressed="true"]{background:rgba(255,222,89,.18);color:var(--gold)}
+  .stepper{display:flex;align-items:center;justify-content:space-between;height:50px;border-radius:12px;background:rgba(0,0,0,.4);border:1.5px solid rgba(255,222,89,.22);padding:0 5px}
+  .stepper button{width:44px;height:40px;border:0;border-radius:9px;background:rgba(255,222,89,.14);color:var(--gold);font-size:22px;font-weight:700;cursor:pointer;line-height:1}
+  .stepper output{font-size:19px;font-weight:700}
+  .stepper span{font-size:13px;color:var(--cream);margin-left:4px}
+  .bonus{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:12px;background:rgba(255,222,89,.1);border:1px dashed rgba(255,222,89,.45);font-size:12.5px;color:var(--gold)}
+  .bonus b{font-family:'Public Sans',sans-serif}
+  .bonus svg{flex:none}
+
+  /* result */
+  .result{margin-top:auto;padding:15px 16px;border-radius:20px;background:linear-gradient(135deg,#ffe57a 0%,#ffcf5c 45%,#e9a83a 100%);color:var(--ink);box-shadow:0 10px 30px rgba(255,189,89,.22)}
+  .result .top{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700}
+  .result .big{margin:3px 0 1px;font-size:40px;font-weight:800;letter-spacing:-.5px;line-height:1.1}
+  .result .big small{font-family:'Noto Sans Thai',sans-serif;font-size:18px;font-weight:700;margin-left:6px}
+  .result .how{font-size:12px;color:#5a2a0c}
+  .tiers{display:flex;flex-direction:column;margin-top:6px}
+  .tier{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid rgba(42,7,9,.14)}
+  .tier .pc{font-family:'Public Sans',sans-serif;font-weight:800;font-size:15px;padding:3px 9px;border-radius:8px;background:rgba(42,7,9,.1)}
+  .tier .amt{font-family:'Public Sans',sans-serif;font-weight:800;font-size:22px;font-variant-numeric:tabular-nums}
+  .tier .amt small{font-family:'Noto Sans Thai',sans-serif;font-size:13px;font-weight:700;margin-left:4px}
+  .guar{margin-top:9px;padding:9px 11px;border-radius:12px;background:var(--ink);color:var(--gold)}
+  .guar .row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .guar .t{font-size:13px;font-weight:700}
+  .guar .amt{font-family:'Public Sans',sans-serif;font-weight:800;font-size:20px;font-variant-numeric:tabular-nums}
+  .guar .amt small{font-family:'Noto Sans Thai',sans-serif;font-size:12px;margin-left:4px}
+  .guar .tag{display:flex;align-items:center;gap:6px;margin-top:7px;padding:5px 10px;border-radius:9px;background:#e0262d;color:#fff;font-size:12.5px;font-weight:700;box-shadow:0 0 0 1px rgba(255,255,255,.25) inset}
+  .guar .tag svg{flex:none}
+  .reset{border:0;background:rgba(42,7,9,.12);color:var(--ink);font:inherit;font-size:12px;font-weight:700;padding:6px 10px;border-radius:999px;cursor:pointer}
+  .notice{display:flex;gap:8px;align-items:flex-start;margin:0;padding:9px 12px;border-radius:12px;background:rgba(0,0,0,.3);font-size:12px;line-height:1.5;color:var(--cream)}
+  .notice svg{flex:none;margin-top:2px;color:var(--gold)}
+  .foot{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .foot a{height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;font-weight:700;font-size:14px}
+  .foot .line{background:var(--red);color:#fff}
+  .foot .br{border:1px solid rgba(255,222,89,.4);color:var(--gold)}
+  [hidden]{display:none!important}
+  @media (max-height:720px){
+    .page{gap:9px}.card{padding:12px;gap:10px}.result .big{font-size:34px}
+    .inp,.stepper{height:46px}.chips button{height:40px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <img src="https://goldsilver00.github.io/price/m/logo.png" alt="โลโก้ LH หลอมทอง">
+    <div class="brand">
+      <h1><span class="lh">LH</span><span class="nm">หลอมทอง</span></h1>
+      <p>ประเมินราคารับซื้อเบื้องต้น</p>
+    </div>
+    <span class="live off" id="live"><i></i><span id="liveTxt">กำลังโหลด</span></span>
+  </header>
+
+  <div class="seg" role="group" aria-label="เลือกประเภท">
+    <button type="button" data-m="jewel" aria-pressed="true">ทองรูปพรรณ</button>
+    <button type="button" data-m="bar" aria-pressed="false">ทองคำแท่ง</button>
+    <button type="button" data-m="silver" aria-pressed="false">เงิน</button>
+    <button type="button" data-m="pgm" aria-pressed="false">แพลตินัม+</button>
+  </div>
+
+  <div class="strip">
+    <div>
+      <div class="lbl" id="priceLbl">ทองคำแท่ง 96.5% · สมาคมฯ รับซื้อ</div>
+      <div class="val num"><span id="priceVal">–</span><small id="priceUnit">บาท/บาททอง</small></div>
+    </div>
+    <div class="rt" id="priceMeta">–</div>
+  </div>
+
+  <form class="card" onsubmit="return false">
+    <!-- ทองรูปพรรณ -->
+    <div id="paneJewel" style="display:flex;flex-direction:column;gap:12px">
+      <div class="field">
+        <span class="lab">เลือกกะรัต</span>
+        <div class="chips" id="karats"></div>
+      </div>
+      <div class="two" id="jewelRow">
+        <div class="field" id="pctGoldField">
+          <label class="lab" for="pctGold">% ทอง</label>
+          <div class="inp"><input id="pctGold" class="num" type="number" inputmode="decimal" step="0.01" min="0" max="100"><span class="u">%</span></div>
+        </div>
+        <div class="field">
+          <label class="lab" for="wtGold">น้ำหนัก</label>
+          <div class="inp">
+            <input id="wtGold" class="num" type="number" inputmode="decimal" step="0.01" min="0" placeholder="0">
+            <span class="unit" id="unitGold">
+              <button type="button" data-u="g" aria-pressed="true">กรัม</button>
+              <button type="button" data-u="baht" aria-pressed="false">บาท</button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ทองคำแท่ง -->
+    <div id="paneBar" hidden style="flex-direction:column;gap:12px">
+      <div class="field">
+        <span class="lab">เลือกขนาดทองคำแท่ง (96.5%)</span>
+        <div class="chips c4" id="bars"></div>
+      </div>
+      <div class="field">
+        <span class="lab">จำนวนแท่ง</span>
+        <div class="stepper">
+          <button type="button" id="qtyMinus" aria-label="ลดจำนวน">−</button>
+          <div><output id="qty" class="num">1</output><span>แท่ง</span></div>
+          <button type="button" id="qtyPlus" aria-label="เพิ่มจำนวน">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- เงิน -->
+    <div id="paneSilver" hidden style="flex-direction:column;gap:12px">
+      <div class="field">
+        <span class="lab">ความบริสุทธิ์</span>
+        <div class="chips c4" id="silverPresets"></div>
+      </div>
+      <div class="two">
+        <div class="field">
+          <label class="lab" for="pctSilver">% เงิน</label>
+          <div class="inp"><input id="pctSilver" class="num" type="number" inputmode="decimal" step="0.01" min="0" max="100"><span class="u">%</span></div>
+        </div>
+        <div class="field">
+          <label class="lab" for="wtSilver">น้ำหนัก</label>
+          <div class="inp"><input id="wtSilver" class="num" type="number" inputmode="decimal" step="0.01" min="0" placeholder="0"><span class="u">กรัม</span></div>
+        </div>
+      </div>
+    </div>
+    <!-- แพลตินัม / แพลเลเดียม / โรเดียม -->
+    <div id="panePgm" hidden style="flex-direction:column;gap:12px">
+      <div class="field">
+        <span class="lab">เลือกโลหะ</span>
+        <div class="chips c3 tall" id="pgms"></div>
+      </div>
+      <div class="two">
+        <div class="field">
+          <label class="lab" for="pctPgm" id="pctPgmLbl">% ความบริสุทธิ์</label>
+          <div class="inp"><input id="pctPgm" class="num" type="number" inputmode="decimal" step="0.01" min="0" max="100"><span class="u">%</span></div>
+        </div>
+        <div class="field">
+          <label class="lab" for="wtPgm">น้ำหนัก</label>
+          <div class="inp"><input id="wtPgm" class="num" type="number" inputmode="decimal" step="0.01" min="0" placeholder="0"><span class="u">กรัม</span></div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <section class="result" aria-live="polite">
+    <div class="top"><span id="resTitle">ราคาประเมิน</span><button type="button" class="reset" id="reset">ล้างค่า</button></div>
+    <div id="single">
+      <div class="big num"><span id="total">0.00</span><small>บาท</small></div>
+      <div class="how" id="how">กรอกน้ำหนักเพื่อคำนวณ</div>
+    </div>
+    <div id="tierView" hidden>
+      <div class="tiers" id="tiers"></div>
+      <div class="guar">
+        <div class="row"><span class="t">ประกันราคา ไม่ต่ำกว่า</span><span class="amt" id="guarAmt">0.00<small>บาท</small></span></div>
+        <span class="tag" role="note"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>ระวัง! ทองหลังหลอมต้องไม่ต่ำกว่า 93% เท่านั้น</span>
+      </div>
+    </div>
+  </section>
+
+  <p class="notice" id="notice">
+    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg>
+    <span id="noticeTxt">ราคานี้เป็นการประเมินเบื้องต้น ราคารับซื้อจริงขึ้นอยู่กับ % และน้ำหนักหลังหลอมเท่านั้น</span>
+  </p>
+
+  <div class="foot">
+    <a class="line" href="https://line.me/R/ti/p/@lhom" target="_blank" rel="noopener">ส่งรูปให้ร้านประเมิน</a>
+    <a class="br" href="https://goldsilver00.github.io/price/branch/">ดูสาขา / โทร</a>
+  </div>
+</div>
+
+<script>
+/* ================== ตั้งค่าร้าน (แก้ตรงนี้) ================== */
+var CONFIG = {
+  goldLive:  'https://api.chnwt.dev/thai-gold-api/latest',       // ราคาสมาคมฯ สด (แหล่งเดียวกับหน้าราคา)
+  goldFile:  'https://goldsilver00.github.io/price/gold.json',    // สำรอง
+  sheetFile: 'https://goldsilver00.github.io/price/sheet-url.txt',// ลิงก์ Google Sheet ราคาเงิน (ต่อ กก.)
+  silverFile:'https://goldsilver00.github.io/price/silver.json',  // สำรอง
+  pricesFile:'https://goldsilver00.github.io/price/prices.json',  // แพลตินัม แพลเลเดียม โรเดียม (ราคาต่อกรัม ชุดเดียวกับหน้าราคา)
+  pgmDefaultPct: 100,
+  gramsPerBaht: 15.244,
+  perGram: 0.0656,      // ตัวคูณแปลงราคาบาททอง -> ราคาต่อกรัม (สูตรหน้าร้าน)
+  plusKarats: ['24K','23K'], // กะรัตที่ได้ +1,000 และแสดงตาราง % หลังหลอม
+  plusAmount: 1000,          // บวกเพิ่มจากราคารับซื้อสมาคมฯ (บาท/บาททอง)
+  tierPcts: [94, 95, 96],    // % หลังหลอมที่แสดง
+  guaranteeDeduct: 0.05,     // ประกันราคา = ราคารับซื้อสมาคมฯ ลบ 5% (ทองหลังหลอมไม่ต่ำกว่า 93%)
+  barDeduct: 300,       // ทองคำแท่ง หัก บาท/บาททอง
+  karats: [
+    { k:'24K', pct:99.99, star:'+1,000' }, { k:'23K', pct:96.5, star:'+1,000' }, { k:'22K', pct:91.67 },
+    { k:'18K', pct:75 },    { k:'14K', pct:58.5 }, { k:'9K', pct:37.5 }
+  ],
+  bars: [
+    { label:'ครึ่งสลึง', baht:0.125 }, { label:'1 สลึง', baht:0.25 }, { label:'2 สลึง', baht:0.5 }, { label:'1 บาท', baht:1 },
+    { label:'2 บาท', baht:2 }, { label:'5 บาท', baht:5 }, { label:'10 บาท', baht:10 }, { label:'1 กิโล', baht:65.6 }
+  ],
+  silverPresets: [ { label:'99.99%', pct:99.99 }, { label:'96%', pct:96 }, { label:'92.5%', pct:92.5 }, { label:'90%', pct:90 } ]
+};
+var NOTE_MELT = 'ราคานี้เป็นการประเมินเบื้องต้น ราคารับซื้อจริงขึ้นอยู่กับ % และน้ำหนักหลังหลอมเท่านั้น';
+var NOTE_BAR  = 'ราคาเปลี่ยนตามประกาศสมาคมค้าทองคำ กรุณาสอบถามราคาล่าสุดกับร้านก่อนเข้ามาขาย';
+/* ============================================================ */
+
+var S = { metal:'jewel', unit:'g', karat:'23K', bar:3, qty:1, silverPreset:0, pgm:0, pgmList:null, pgmAsOf:'', gold:null, silverKg:null, live:false };
+var $ = function(id){ return document.getElementById(id); };
+var fmt = function(n,d){ return n.toLocaleString('th-TH',{minimumFractionDigits:d,maximumFractionDigits:d}); };
+var num = function(s){ return parseFloat(String(s).replace(/,/g,'')); };
+var bust = function(u){ return u + (u.indexOf('?')>-1?'&':'?') + 't=' + Date.now(); };
+function getText(u){ return fetch(bust(u),{cache:'no-store'}).then(function(r){ if(!r.ok) throw r.status; return r.text(); }); }
+
+/* ---------- build chips ---------- */
+$('karats').innerHTML = CONFIG.karats.map(function(c){
+  return '<button type="button" data-k="'+c.k+'">'+c.k+(c.star?'<span class="star">'+c.star+'</span>':'')+'</button>';
+}).join('');
+$('bars').innerHTML = CONFIG.bars.map(function(b,i){ return '<button type="button" data-i="'+i+'">'+b.label+'</button>'; }).join('');
+function buildPgm(){
+  $('pgms').innerHTML = (S.pgmList||[{sym:'Pt',th:'แพลตินัม'},{sym:'Pd',th:'แพลเลเดียม'},{sym:'Rh',th:'โรเดียม'}]).map(function(m,i){
+    return '<button type="button" class="pg" data-i="'+i+'"><b>'+m.sym+'</b><small>'+m.th+'</small></button>';
+  }).join('');
+}
+buildPgm();
+$('silverPresets').innerHTML = CONFIG.silverPresets.map(function(p,i){ return '<button type="button" data-i="'+i+'">'+p.label+'</button>'; }).join('');
+
+/* ---------- events ---------- */
+document.querySelector('.seg').addEventListener('click', function(e){
+  var b = e.target.closest('button'); if(!b) return; S.metal = b.dataset.m; paint(); calc();
+});
+$('karats').addEventListener('click', function(e){
+  var b = e.target.closest('button'); if(!b) return;
+  var c = CONFIG.karats.find(function(x){ return x.k===b.dataset.k; });
+  S.karat = c.k; $('pctGold').value = c.pct; paint(); calc();
+});
+$('pctGold').addEventListener('input', function(){
+  paint(); calc();
+});
+$('unitGold').addEventListener('click', function(e){
+  var b = e.target.closest('button'); if(!b) return; S.unit = b.dataset.u; paint(); calc();
+});
+$('bars').addEventListener('click', function(e){
+  var b = e.target.closest('button'); if(!b) return; S.bar = +b.dataset.i; paint(); calc();
+});
+$('qtyMinus').onclick = function(){ if(S.qty>1){ S.qty--; paint(); calc(); } };
+$('qtyPlus').onclick  = function(){ if(S.qty<99){ S.qty++; paint(); calc(); } };
+$('silverPresets').addEventListener('click', function(e){
+  var b = e.target.closest('button'); if(!b) return;
+  S.silverPreset = +b.dataset.i; $('pctSilver').value = CONFIG.silverPresets[S.silverPreset].pct; paint(); calc();
+});
+$('pctSilver').addEventListener('input', function(){
+  var v = num(this.value); var i = CONFIG.silverPresets.findIndex(function(p){ return p.pct===v; });
+  S.silverPreset = i; paint(); calc();
+});
+$('pgms').addEventListener('click', function(e){
+  var b = e.target.closest('button'); if(!b) return; S.pgm = +b.dataset.i; paint(); calc();
+});
+$('pctPgm').addEventListener('input', calc);
+['wtGold','wtSilver','wtPgm'].forEach(function(id){ $(id).addEventListener('input', calc); });
+$('reset').onclick = function(){
+  if (S.metal==='bar'){ S.qty = 1; S.bar = 3; }
+  else { var id = {jewel:'wtGold',silver:'wtSilver',pgm:'wtPgm'}[S.metal]; $(id).value=''; $(id).focus(); }
+  paint(); calc();
+};
+
+function pressed(container, fn){ [].forEach.call($(container).children, function(b,i){ b.setAttribute('aria-pressed', !!fn(b,i)); }); }
+
+/* ---------- paint ---------- */
+function paint(){
+  var m = S.metal;
+  [].forEach.call(document.querySelectorAll('.seg button'), function(b){ b.setAttribute('aria-pressed', b.dataset.m===m); });
+  $('paneJewel').hidden = m!=='jewel'; $('paneBar').hidden = m!=='bar'; $('paneSilver').hidden = m!=='silver'; $('panePgm').hidden = m!=='pgm'; $('panePgm').style.display = m==='pgm' ? 'flex' : '';
+  $('paneBar').style.display = m==='bar' ? 'flex' : ''; $('paneSilver').style.display = m==='silver' ? 'flex' : '';
+  pressed('karats', function(b){ return b.dataset.k===S.karat; });
+  pressed('unitGold', function(b){ return b.dataset.u===S.unit; });
+  pressed('bars', function(b,i){ return i===S.bar; });
+  pressed('silverPresets', function(b,i){ return i===S.silverPreset; });
+  pressed('pgms', function(b,i){ return i===S.pgm; });
+  $('qty').textContent = S.qty;
+  var tiered = m==='jewel' && CONFIG.plusKarats.indexOf(S.karat)>-1;
+  $('pctGoldField').hidden = tiered; $('jewelRow').classList.toggle('one', tiered);
+  $('single').hidden = tiered; $('tierView').hidden = !tiered;
+  $('resTitle').textContent = tiered ? 'ราคาประเมินตาม % หลังหลอม' : 'ราคาประเมิน';
+  $('noticeTxt').textContent = m==='bar' ? NOTE_BAR : NOTE_MELT;
+
+  if (m==='pgm'){
+    var pm = S.pgmList && S.pgmList[S.pgm];
+    $('priceLbl').textContent = (pm ? pm.th+' ('+pm.sym+')' : 'แพลตินัม') + ' · ร้านรับซื้อ';
+    $('priceVal').textContent = pm ? fmt(pm.pricePerGram,0) : '–';
+    $('priceUnit').textContent = 'บาท/กรัม';
+    $('priceMeta').innerHTML = S.pgmAsOf ? 'ราคาประจำวัน<br>'+S.pgmAsOf : 'กำลังโหลด…';
+    $('pctPgmLbl').textContent = '% ' + (pm ? pm.th : 'ความบริสุทธิ์');
+  } else if (m==='silver'){
+    $('priceLbl').textContent = 'เงินแท่ง 99.99% · ร้านรับซื้อ';
+    $('priceVal').textContent = S.silverKg ? fmt(S.silverKg,0) : '–';
+    $('priceUnit').textContent = 'บาท/กก.';
+    $('priceMeta').innerHTML = S.silverKg ? 'กรัมละ<br><b class="num">'+fmt(S.silverKg/1000,2)+'</b>' : 'กำลังโหลด…';
+  } else {
+    $('priceLbl').textContent = 'ทองคำแท่ง 96.5% · สมาคมฯ รับซื้อ';
+    $('priceVal').textContent = S.gold ? fmt(S.gold.barBuy,0) : '–';
+    $('priceUnit').textContent = 'บาท/บาททอง';
+    $('priceMeta').innerHTML = S.gold ? (S.gold.date||'') + '<br>' + (S.gold.time? S.gold.time+' น.':'') + (S.gold.seq?' · ครั้งที่ '+S.gold.seq:'') : 'กำลังโหลด…';
+  }
+}
+
+/* ---------- calculate ---------- */
+function calc(){
+  var total = 0, how = '';
+  if (S.metal==='jewel'){
+    var w = num($('wtGold').value)||0, p = num($('pctGold').value)||0;
+    if (!S.gold) how = 'กำลังโหลดราคาทอง…';
+    else if (!w) how = 'กรอกน้ำหนักเพื่อคำนวณ';
+    else {
+      var grams = S.unit==='baht' ? w*CONFIG.gramsPerBaht : w;
+      total = S.gold.barBuy * CONFIG.perGram * (p/100) * grams;
+      how = 'ทอง '+fmt(p,2)+'% · น้ำหนัก '+fmt(grams,2)+' กรัม';
+    }
+  } else if (S.metal==='bar'){
+    var b = CONFIG.bars[S.bar];
+    if (!S.gold) how = 'กำลังโหลดราคาทอง…';
+    else {
+      total = (S.gold.barBuy - CONFIG.barDeduct) * b.baht * S.qty;
+      how = 'ทองคำแท่ง '+b.label+' × '+S.qty+' แท่ง';
+    }
+  } else if (S.metal==='pgm'){
+    var pm = S.pgmList && S.pgmList[S.pgm];
+    var wp = num($('wtPgm').value)||0, pp = num($('pctPgm').value)||0;
+    if (!pm) how = 'กำลังโหลดราคา…';
+    else if (!wp) how = 'กรอกน้ำหนักเพื่อคำนวณ';
+    else { total = pm.pricePerGram * (pp/100) * wp; how = pm.th+' '+fmt(pp,2)+'% · น้ำหนัก '+fmt(wp,2)+' กรัม'; }
+  } else {
+    var ws = num($('wtSilver').value)||0, ps = num($('pctSilver').value)||0;
+    if (!S.silverKg) how = 'กำลังโหลดราคาเงิน…';
+    else if (!ws) how = 'กรอกน้ำหนักเพื่อคำนวณ';
+    else { total = S.silverKg/1000 * (ps/100) * ws; how = 'เงิน '+fmt(ps,2)+'% · น้ำหนัก '+fmt(ws,2)+' กรัม'; }
+  }
+  if (S.metal==='jewel' && CONFIG.plusKarats.indexOf(S.karat)>-1){
+    var gw = num($('wtGold').value)||0, gg = S.unit==='baht' ? gw*CONFIG.gramsPerBaht : gw;
+    var ok = S.gold && gg;
+    $('tiers').innerHTML = CONFIG.tierPcts.map(function(pc){
+      var v = ok ? (S.gold.barBuy + CONFIG.plusAmount) * (pc/100) * CONFIG.perGram * gg : 0;
+      return '<div class="tier"><span class="pc">'+pc+'%</span><span class="amt">'+fmt(v,2)+'<small>บาท</small></span></div>';
+    }).join('');
+    $('guarAmt').innerHTML = fmt(ok ? S.gold.barBuy * (1-CONFIG.guaranteeDeduct) * CONFIG.perGram * gg : 0, 2)+'<small>บาท</small>';
+  }
+  $('total').textContent = fmt(total,2);
+  $('how').textContent = how;
+}
+
+/* ---------- data ---------- */
+function setLive(on){ S.live = on; $('live').classList.toggle('off', !on); $('liveTxt').textContent = on ? 'เรียลไทม์' : (S.gold ? 'ราคาล่าสุด' : 'ออฟไลน์'); }
+function useGold(g, live){ if (!g || !(g.barBuy>10000)) throw 'bad'; S.gold = g; setLive(live); paint(); calc(); }
+function refreshGold(){
+  getText(CONFIG.goldLive).then(function(t){
+    var d = JSON.parse(t).response, u = d.update_time || '';
+    var seq = u.match(/ครั้งที่\s*(\d+)/), tm = u.match(/(\d{1,2}:\d{2})/);
+    useGold({ barBuy:num(d.price.gold_bar.buy), barSell:num(d.price.gold_bar.sell), seq: seq?+seq[1]:null, time: tm?tm[1]:'', date:d.update_date }, true);
+  }).catch(function(){
+    getText(CONFIG.goldFile).then(function(t){ useGold(JSON.parse(t), false); }).catch(function(){ setLive(false); });
+  });
+}
+var sheetUrl = null;
+function firstNumber(text){ var m = String(text).replace(/,/g,'').match(/\d+(\.\d+)?/); return m ? parseFloat(m[0]) : null; }
+function useSilver(v){ if (v>1000 && v<10000000){ S.silverKg = v; paint(); calc(); } }
+function refreshSilver(){
+  var p = sheetUrl===null ? getText(CONFIG.sheetFile).then(function(t){ sheetUrl = t.trim(); }).catch(function(){ sheetUrl=''; }) : Promise.resolve();
+  p.then(function(){ if (!sheetUrl) throw 'no'; return getText(sheetUrl); })
+   .then(function(t){ var v = firstNumber(t); if (v==null) throw 'nan'; useSilver(v); })
+   .catch(function(){ getText(CONFIG.silverFile).then(function(t){ useSilver(JSON.parse(t).pricePerKg); }).catch(function(){}); });
+}
+
+function refreshPgm(){
+  getText(CONFIG.pricesFile).then(function(t){
+    var p = JSON.parse(t);
+    if (p.metals && p.metals.length){ S.pgmList = p.metals; S.pgmAsOf = p.asOf || ''; buildPgm(); paint(); calc(); }
+  }).catch(function(){});
+}
+
+/* ---------- start ---------- */
+$('pctGold').value = 96.5;
+$('pctSilver').value = CONFIG.silverPresets[0].pct;
+$('pctPgm').value = CONFIG.pgmDefaultPct;
+paint(); calc();
+refreshGold(); refreshSilver(); refreshPgm();
+setInterval(refreshPgm, 600000); setInterval(refreshGold, 60000); setInterval(refreshSilver, 60000);
+document.addEventListener('visibilitychange', function(){ if(!document.hidden){ refreshGold(); refreshSilver(); refreshPgm(); } });
+</script>
+</body>
+</html>
