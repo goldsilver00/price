@@ -62,7 +62,7 @@
   .chips{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
   .chips.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
   .chips.c7{grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
-  .chips.c7 button{font-size:13.5px}
+  .chips.c7 button{font-size:13px;letter-spacing:-.2px}
   .tier.mine{margin:2px -8px 0;padding:8px;border-radius:10px;background:rgba(42,7,9,.1);border-bottom:0}
   .tier.mine .pc{background:var(--ink);color:var(--gold)}
   .chips.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -126,6 +126,12 @@
   .foot .line{background:var(--red);color:#fff}
   .foot .br{border:1px solid rgba(255,222,89,.4);color:var(--gold)}
   [hidden]{display:none!important}
+  @media (max-width:380px){
+    .two:not(.one) .unit button{padding:0 5px;font-size:12px}
+    .two:not(.one) .inp input{padding-left:10px;font-size:17px}
+    .two:not(.one) .clr{width:22px;height:22px}
+    .two:not(.one) .unit{padding-right:3px}
+  }
   @media (max-height:720px){
     .page{gap:9px}.card{padding:12px;gap:10px}.result .big{font-size:34px}
     .inp,.stepper{height:46px}.chips button{height:40px}
@@ -162,7 +168,7 @@
     <!-- ทองรูปพรรณ -->
     <div id="paneJewel" style="display:flex;flex-direction:column;gap:12px">
       <div class="field">
-        <span class="lab">เลือกกะรัต</span>
+        <span class="lab">เลือก % ทอง</span>
         <div class="chips c7" id="karats"></div>
       </div>
       <div class="two" id="jewelRow">
@@ -285,8 +291,8 @@ var CONFIG = {
   guaranteeDeduct: 0.05,     // ประกันราคา = ราคารับซื้อสมาคมฯ ลบ 5% (ทองหลังหลอมไม่ต่ำกว่า 93%)
   barDeduct: 300,       // ทองคำแท่ง หัก บาท/บาททอง
   karats: [
-    { k:'24K', pct:99.99, star:'+1,000' }, { k:'23K', pct:96.5, star:'+1,000' }, { k:'22K', pct:91.67 },
-    { k:'18K', pct:75 },    { k:'14K', pct:58.5 }, { k:'9K', pct:37.5 }, { k:'นาก', pct:'' }
+    { k:'24K', label:'99.99', pct:99.99, star:'+1,000' }, { k:'23K', label:'96.5', pct:96.5, star:'+1,000' }, { k:'22K', label:'91.67', pct:91.67 },
+    { k:'18K', label:'75', pct:75 }, { k:'14K', label:'58.5', pct:58.5 }, { k:'9K', label:'37.5', pct:37.5 }, { k:'นาก', label:'นาก', pct:'' }
   ],
   bars: [
     { label:'ครึ่งสลึง', baht:0.125 }, { label:'1 สลึง', baht:0.25 }, { label:'2 สลึง', baht:0.5 }, { label:'1 บาท', baht:1 },
@@ -307,7 +313,7 @@ function getText(u){ return fetch(bust(u),{cache:'no-store'}).then(function(r){ 
 
 /* ---------- build chips ---------- */
 $('karats').innerHTML = CONFIG.karats.map(function(c){
-  return '<button type="button" data-k="'+c.k+'">'+c.k+(c.star?'<span class="star">'+c.star+'</span>':'')+'</button>';
+  return '<button type="button" data-k="'+c.k+'">'+(c.label||c.k)+(c.star?'<span class="star">'+c.star+'</span>':'')+'</button>';
 }).join('');
 $('bars').innerHTML = CONFIG.bars.map(function(b,i){ return '<button type="button" data-i="'+i+'">'+b.label+'</button>'; }).join('');
 function buildPgm(){
