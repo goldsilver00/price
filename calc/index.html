@@ -260,7 +260,8 @@ var CONFIG = {
   pgmDefaultPct: 100,
   gramsPerBaht: 15.244,
   perGram: 0.0656,      // ตัวคูณแปลงราคาบาททอง -> ราคาต่อกรัม (สูตรหน้าร้าน)
-  plusKarats: ['24K','23K'], // กะรัตที่ได้ +1,000 และแสดงตาราง % หลังหลอม
+  plusKarats: ['23K'],       // กะรัตที่แสดงตาราง 94/95/96% + ประกันราคา
+  plusPctKarats: ['24K'],    // กะรัตที่ได้ +1,000 แต่กรอก % เองแบบปกติ
   plusAmount: 1000,          // บวกเพิ่มจากราคารับซื้อสมาคมฯ (บาท/บาททอง)
   tierPcts: [94, 95, 96],    // % หลังหลอมที่แสดง
   guaranteeDeduct: 0.05,     // ประกันราคา = ราคารับซื้อสมาคมฯ ลบ 5% (ทองหลังหลอมไม่ต่ำกว่า 93%)
@@ -387,7 +388,8 @@ function calc(){
     else if (!w) how = 'กรอกน้ำหนักเพื่อคำนวณ';
     else {
       var grams = S.unit==='baht' ? w*CONFIG.gramsPerBaht : w;
-      total = S.gold.barBuy * CONFIG.perGram * (p/100) * grams;
+      var base = S.gold.barBuy + (CONFIG.plusPctKarats.indexOf(S.karat)>-1 ? CONFIG.plusAmount : 0);
+      total = base * CONFIG.perGram * (p/100) * grams;
       how = 'ทอง '+fmt(p,2)+'% · น้ำหนัก '+fmt(grams,2)+' กรัม';
     }
   } else if (S.metal==='bar'){
