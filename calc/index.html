@@ -61,6 +61,10 @@
   .lab{font-size:13px;font-weight:600;color:var(--cream)}
   .chips{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
   .chips.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .chips.c7{grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+  .chips.c7 button{font-size:13.5px}
+  .tier.mine{margin:2px -8px 0;padding:8px;border-radius:10px;background:rgba(42,7,9,.1);border-bottom:0}
+  .tier.mine .pc{background:var(--ink);color:var(--gold)}
   .chips.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
   .chips .pg{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;line-height:1.15}
   .chips .pg b{font-family:'Public Sans',sans-serif;font-size:15px}
@@ -76,7 +80,10 @@
   .inp input{flex:1;min-width:0;height:100%;padding:0 4px 0 14px;border:0;background:transparent;color:#fff;font-family:'Public Sans',sans-serif;font-weight:700;font-size:19px;outline:none}
   .inp input::-webkit-outer-spin-button,.inp input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
   .inp input[type=number]{-moz-appearance:textfield;appearance:textfield}
-  .clr{flex:none;width:30px;height:30px;margin-right:2px;border:0;border-radius:50%;background:rgba(255,255,255,.1);color:var(--cream);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+  .inp input:placeholder-shown ~ .clr{display:none}
+  .two:not(.one) .unit button{padding:0 7px}
+  .two:not(.one) .inp input{padding-left:12px;font-size:18px}
+  .clr{flex:none;width:26px;height:26px;margin-right:2px;border:0;border-radius:50%;background:rgba(255,255,255,.1);color:var(--cream);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
   .clr:active{background:rgba(255,255,255,.2)}
   .pg-note{font-size:12px;color:#d9b98a;padding-left:2px;margin-top:-2px}
   .pg-note b{color:var(--gold);font-weight:700}
@@ -100,7 +107,7 @@
   .result .big small{font-family:'Noto Sans Thai',sans-serif;font-size:18px;font-weight:700;margin-left:6px}
   .result .how{font-size:12px;color:#5a2a0c}
   .tiers{display:flex;flex-direction:column;margin-top:6px}
-  .tier{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid rgba(42,7,9,.14)}
+  .tier{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid rgba(42,7,9,.14)}
   .tier .pc{font-family:'Public Sans',sans-serif;font-weight:800;font-size:15px;padding:3px 9px;border-radius:8px;background:rgba(42,7,9,.1)}
   .tier .amt{font-family:'Public Sans',sans-serif;font-weight:800;font-size:22px;font-variant-numeric:tabular-nums}
   .tier .amt small{font-family:'Noto Sans Thai',sans-serif;font-size:13px;font-weight:700;margin-left:4px}
@@ -109,7 +116,7 @@
   .guar .t{font-size:13px;font-weight:700}
   .guar .amt{font-family:'Public Sans',sans-serif;font-weight:800;font-size:20px;font-variant-numeric:tabular-nums}
   .guar .amt small{font-family:'Noto Sans Thai',sans-serif;font-size:12px;margin-left:4px}
-  .guar .tag{display:flex;align-items:center;gap:6px;margin-top:7px;padding:5px 10px;border-radius:9px;background:#e0262d;color:#fff;font-size:12.5px;font-weight:700;box-shadow:0 0 0 1px rgba(255,255,255,.25) inset}
+  .guar .tag{display:flex;align-items:center;gap:6px;margin-top:7px;padding:5px 10px;border-radius:9px;background:#e0262d;color:#fff;font-size:12px;font-weight:700;box-shadow:0 0 0 1px rgba(255,255,255,.25) inset}
   .guar .tag svg{flex:none}
   .reset{border:0;background:rgba(42,7,9,.12);color:var(--ink);font:inherit;font-size:12px;font-weight:700;padding:6px 10px;border-radius:999px;cursor:pointer}
   .notice{display:flex;gap:8px;align-items:flex-start;margin:0;padding:9px 12px;border-radius:12px;background:rgba(0,0,0,.3);font-size:12px;line-height:1.5;color:var(--cream)}
@@ -156,18 +163,19 @@
     <div id="paneJewel" style="display:flex;flex-direction:column;gap:12px">
       <div class="field">
         <span class="lab">เลือกกะรัต</span>
-        <div class="chips" id="karats"></div>
+        <div class="chips c7" id="karats"></div>
       </div>
       <div class="two" id="jewelRow">
         <div class="field" id="pctGoldField">
-          <label class="lab" for="pctGold">% ทอง</label>
-          <div class="inp"><input id="pctGold" class="num" type="number" inputmode="decimal" step="0.01" min="0" max="100" placeholder="0"><button type="button" class="clr" data-for="pctGold" aria-label="ล้าง %"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><span class="u">%</span></div>
+          <label class="lab" for="pctGold" id="pctGoldLbl">% ทอง</label>
+          <div class="inp"><input id="pctGold" class="num" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" placeholder="0"><button type="button" class="clr" data-for="pctGold" aria-label="ล้าง %"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><span class="u">%</span></div>
           <div class="pg-note num" id="pgGold">–</div>
         </div>
         <div class="field">
           <label class="lab" for="wtGold">น้ำหนัก</label>
           <div class="inp">
-            <input id="wtGold" class="num" type="number" inputmode="decimal" step="0.01" min="0" placeholder="0">
+            <input id="wtGold" class="num" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" placeholder="0">
+            <button type="button" class="clr" data-for="wtGold" aria-label="ล้างน้ำหนัก"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
             <span class="unit" id="unitGold">
               <button type="button" data-u="g" aria-pressed="true">กรัม</button>
               <button type="button" data-u="baht" aria-pressed="false">บาท</button>
@@ -202,12 +210,12 @@
       <div class="two">
         <div class="field">
           <label class="lab" for="pctSilver">% เงิน</label>
-          <div class="inp"><input id="pctSilver" class="num" type="number" inputmode="decimal" step="0.01" min="0" max="100" placeholder="0"><button type="button" class="clr" data-for="pctSilver" aria-label="ล้าง %"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><span class="u">%</span></div>
+          <div class="inp"><input id="pctSilver" class="num" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" placeholder="0"><button type="button" class="clr" data-for="pctSilver" aria-label="ล้าง %"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><span class="u">%</span></div>
           <div class="pg-note num" id="pgSilver">–</div>
         </div>
         <div class="field">
           <label class="lab" for="wtSilver">น้ำหนัก</label>
-          <div class="inp"><input id="wtSilver" class="num" type="number" inputmode="decimal" step="0.01" min="0" placeholder="0"><span class="u">กรัม</span></div>
+          <div class="inp"><input id="wtSilver" class="num" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" placeholder="0"><button type="button" class="clr" data-for="wtSilver" aria-label="ล้างน้ำหนัก"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><span class="u">กรัม</span></div>
         </div>
       </div>
     </div>
@@ -220,12 +228,12 @@
       <div class="two">
         <div class="field">
           <label class="lab" for="pctPgm" id="pctPgmLbl">% ความบริสุทธิ์</label>
-          <div class="inp"><input id="pctPgm" class="num" type="number" inputmode="decimal" step="0.01" min="0" max="100" placeholder="0"><button type="button" class="clr" data-for="pctPgm" aria-label="ล้าง %"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><span class="u">%</span></div>
+          <div class="inp"><input id="pctPgm" class="num" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" placeholder="0"><button type="button" class="clr" data-for="pctPgm" aria-label="ล้าง %"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><span class="u">%</span></div>
           <div class="pg-note num" id="pgPgm">–</div>
         </div>
         <div class="field">
           <label class="lab" for="wtPgm">น้ำหนัก</label>
-          <div class="inp"><input id="wtPgm" class="num" type="number" inputmode="decimal" step="0.01" min="0" placeholder="0"><span class="u">กรัม</span></div>
+          <div class="inp"><input id="wtPgm" class="num" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" placeholder="0"><button type="button" class="clr" data-for="wtPgm" aria-label="ล้างน้ำหนัก"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><span class="u">กรัม</span></div>
         </div>
       </div>
     </div>
@@ -239,9 +247,9 @@
     </div>
     <div id="tierView" hidden>
       <div class="tiers" id="tiers"></div>
-      <div class="guar">
+      <div class="guar" id="guarBox">
         <div class="row"><span class="t">ประกันราคา ไม่ต่ำกว่า</span><span class="amt" id="guarAmt">0.00<small>บาท</small></span></div>
-        <span class="tag" role="note"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>ระวัง! ทองหลังหลอมต้องไม่ต่ำกว่า 93% เท่านั้น</span>
+        <span class="tag" role="note"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>เงื่อนไข: ทองหลังหลอมต้องไม่ต่ำกว่า 93% เท่านั้น</span>
       </div>
     </div>
   </section>
@@ -268,15 +276,17 @@ var CONFIG = {
   pgmDefaultPct: '',
   gramsPerBaht: 15.244,
   perGram: 0.0656,      // ตัวคูณแปลงราคาบาททอง -> ราคาต่อกรัม (สูตรหน้าร้าน)
-  plusKarats: ['23K'],       // กะรัตที่แสดงตาราง 94/95/96% + ประกันราคา
+  tierSets: {                // กะรัตที่แสดงยอดเป็นรายการ %
+    '23K': { pcts:[94,95,96],     plus:1000, guarantee:true,  pctInput:false },
+    'นาก': { pcts:[29,33,40,50],  plus:0,    guarantee:false, pctInput:true  }
+  },
   plusPctKarats: ['24K'],    // กะรัตที่ได้ +1,000 แต่กรอก % เองแบบปกติ
   plusAmount: 1000,          // บวกเพิ่มจากราคารับซื้อสมาคมฯ (บาท/บาททอง)
-  tierPcts: [94, 95, 96],    // % หลังหลอมที่แสดง
   guaranteeDeduct: 0.05,     // ประกันราคา = ราคารับซื้อสมาคมฯ ลบ 5% (ทองหลังหลอมไม่ต่ำกว่า 93%)
   barDeduct: 300,       // ทองคำแท่ง หัก บาท/บาททอง
   karats: [
     { k:'24K', pct:99.99, star:'+1,000' }, { k:'23K', pct:96.5, star:'+1,000' }, { k:'22K', pct:91.67 },
-    { k:'18K', pct:75 },    { k:'14K', pct:58.5 }, { k:'9K', pct:37.5 }
+    { k:'18K', pct:75 },    { k:'14K', pct:58.5 }, { k:'9K', pct:37.5 }, { k:'นาก', pct:'' }
   ],
   bars: [
     { label:'ครึ่งสลึง', baht:0.125 }, { label:'1 สลึง', baht:0.25 }, { label:'2 สลึง', baht:0.5 }, { label:'1 บาท', baht:1 },
@@ -361,9 +371,10 @@ function paint(){
   pressed('silverPresets', function(b,i){ return i===S.silverPreset; });
   pressed('pgms', function(b,i){ return i===S.pgm; });
   $('qty').textContent = S.qty;
-  var tiered = m==='jewel' && CONFIG.plusKarats.indexOf(S.karat)>-1;
-  $('pctGoldField').hidden = tiered; $('jewelRow').classList.toggle('one', tiered);
-  $('single').hidden = tiered; $('tierView').hidden = !tiered;
+  var ts = m==='jewel' && CONFIG.tierSets[S.karat], tiered = !!ts;
+  var noPct = tiered && !ts.pctInput;
+  $('pctGoldField').hidden = noPct; $('jewelRow').classList.toggle('one', noPct);
+  $('single').hidden = tiered; $('tierView').hidden = !tiered; $('guarBox').hidden = !(ts && ts.guarantee);
   $('resTitle').textContent = tiered ? 'ราคาประเมินตาม % หลังหลอม' : 'ราคาประเมิน';
   $('noticeTxt').textContent = m==='bar' ? NOTE_BAR : NOTE_MELT;
 
@@ -381,6 +392,7 @@ function paint(){
     $('priceMeta').innerHTML = S.silverKg ? 'กรัมละ<br><b class="num">'+fmt(S.silverKg/1000,2)+'</b>' : 'กำลังโหลด…';
   } else {
     $('priceLbl').textContent = 'ทองคำแท่ง 96.5% · สมาคมฯ รับซื้อ';
+    $('pctGoldLbl').textContent = S.karat==='นาก' ? '% ทองในนาก' : '% ทอง';
     $('priceVal').textContent = S.gold ? fmt(S.gold.barBuy,0) : '–';
     $('priceUnit').textContent = 'บาท/บาททอง';
     $('priceMeta').innerHTML = S.gold ? (S.gold.date||'') + '<br>' + (S.gold.time? S.gold.time+' น.':'') + (S.gold.seq?' · ครั้งที่ '+S.gold.seq:'') : 'กำลังโหลด…';
@@ -419,21 +431,29 @@ function calc(){
     else if (!ws) how = 'กรอกน้ำหนักเพื่อคำนวณ';
     else { total = S.silverKg/1000 * (ps/100) * ws; how = 'เงิน '+fmt(ps,2)+'% · น้ำหนัก '+fmt(ws,2)+' กรัม'; }
   }
-  if (S.metal==='jewel' && CONFIG.plusKarats.indexOf(S.karat)>-1){
+  var ts = S.metal==='jewel' && CONFIG.tierSets[S.karat];
+  if (ts){
     var gw = num($('wtGold').value)||0, gg = S.unit==='baht' ? gw*CONFIG.gramsPerBaht : gw;
-    var ok = S.gold && gg;
-    $('tiers').innerHTML = CONFIG.tierPcts.map(function(pc){
-      var v = ok ? (S.gold.barBuy + CONFIG.plusAmount) * (pc/100) * CONFIG.perGram * gg : 0;
-      var pg = S.gold ? (S.gold.barBuy + CONFIG.plusAmount) * (pc/100) * CONFIG.perGram : 0;
-      return '<div class="tier"><span><span class="pc">'+pc+'%</span><span class="pg">กรัมละ '+fmt(pg,2)+'</span></span><span class="amt">'+fmt(v,2)+'<small>บาท</small></span></div>';
-    }).join('');
-    $('guarAmt').innerHTML = fmt(ok ? S.gold.barBuy * (1-CONFIG.guaranteeDeduct) * CONFIG.perGram * gg : 0, 2)+'<small>บาท</small>';
+    var ok = S.gold && gg, base = S.gold ? S.gold.barBuy + ts.plus : 0;
+    var row = function(pc, cls){
+      var pg = base * (pc/100) * CONFIG.perGram, v = ok ? pg * gg : 0;
+      return '<div class="tier'+(cls||'')+'"><span><span class="pc">'+fmt(pc, pc%1?2:0)+'%</span><span class="pg">กรัมละ '+fmt(pg,2)+'</span></span><span class="amt">'+fmt(v,2)+'<small>บาท</small></span></div>';
+    };
+    var mine = ts.pctInput ? (num($('pctGold').value)||0) : 0;
+    $('tiers').innerHTML = ts.pcts.map(function(pc){ return row(pc); }).join('') + (mine && ts.pcts.indexOf(mine)<0 ? row(mine,' mine') : '');
+    if (ts.guarantee) $('guarAmt').innerHTML = fmt(ok ? S.gold.barBuy * (1-CONFIG.guaranteeDeduct) * CONFIG.perGram * gg : 0, 2)+'<small>บาท</small>';
   }
   perGramNotes();
   $('total').textContent = fmt(total,2);
   $('how').textContent = how;
 }
 
+document.addEventListener('input', function(e){
+  var t = e.target; if (!t.matches || !t.matches('input[inputmode="decimal"]')) return;
+  var v = t.value.replace(/,/g,'.').replace(/[^0-9.]/g,''), k = v.indexOf('.');
+  if (k>-1) v = v.slice(0,k+1) + v.slice(k+1).replace(/\./g,'');
+  if (v !== t.value) t.value = v;
+}, true);
 document.addEventListener('click', function(e){
   var b = e.target.closest('.clr'); if(!b) return;
   var inp = $(b.dataset.for); inp.value = ''; inp.dispatchEvent(new Event('input')); inp.focus();
