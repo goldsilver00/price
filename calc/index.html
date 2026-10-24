@@ -76,6 +76,11 @@
   .inp input{flex:1;min-width:0;height:100%;padding:0 4px 0 14px;border:0;background:transparent;color:#fff;font-family:'Public Sans',sans-serif;font-weight:700;font-size:19px;outline:none}
   .inp input::-webkit-outer-spin-button,.inp input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
   .inp input[type=number]{-moz-appearance:textfield;appearance:textfield}
+  .clr{flex:none;width:30px;height:30px;margin-right:2px;border:0;border-radius:50%;background:rgba(255,255,255,.1);color:var(--cream);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+  .clr:active{background:rgba(255,255,255,.2)}
+  .pg-note{font-size:12px;color:#d9b98a;padding-left:2px;margin-top:-2px}
+  .pg-note b{color:var(--gold);font-weight:700}
+  .tier .pg{font-family:'Noto Sans Thai',sans-serif;font-size:11.5px;font-weight:600;color:#5a2a0c;margin-left:6px}
   .inp .u{padding-right:12px;font-size:13px;font-weight:600;color:var(--gold)}
   .unit{display:flex;gap:2px;padding-right:5px}
   .unit button{height:38px;padding:0 9px;border:0;border-radius:9px;background:transparent;color:var(--cream);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
@@ -156,7 +161,8 @@
       <div class="two" id="jewelRow">
         <div class="field" id="pctGoldField">
           <label class="lab" for="pctGold">% ทอง</label>
-          <div class="inp"><input id="pctGold" class="num" type="number" inputmode="decimal" step="0.01" min="0" max="100"><span class="u">%</span></div>
+          <div class="inp"><input id="pctGold" class="num" type="number" inputmode="decimal" step="0.01" min="0" max="100" placeholder="0"><button type="button" class="clr" data-for="pctGold" aria-label="ล้าง %"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><span class="u">%</span></div>
+          <div class="pg-note num" id="pgGold">–</div>
         </div>
         <div class="field">
           <label class="lab" for="wtGold">น้ำหนัก</label>
@@ -196,7 +202,8 @@
       <div class="two">
         <div class="field">
           <label class="lab" for="pctSilver">% เงิน</label>
-          <div class="inp"><input id="pctSilver" class="num" type="number" inputmode="decimal" step="0.01" min="0" max="100"><span class="u">%</span></div>
+          <div class="inp"><input id="pctSilver" class="num" type="number" inputmode="decimal" step="0.01" min="0" max="100" placeholder="0"><button type="button" class="clr" data-for="pctSilver" aria-label="ล้าง %"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><span class="u">%</span></div>
+          <div class="pg-note num" id="pgSilver">–</div>
         </div>
         <div class="field">
           <label class="lab" for="wtSilver">น้ำหนัก</label>
@@ -213,7 +220,8 @@
       <div class="two">
         <div class="field">
           <label class="lab" for="pctPgm" id="pctPgmLbl">% ความบริสุทธิ์</label>
-          <div class="inp"><input id="pctPgm" class="num" type="number" inputmode="decimal" step="0.01" min="0" max="100"><span class="u">%</span></div>
+          <div class="inp"><input id="pctPgm" class="num" type="number" inputmode="decimal" step="0.01" min="0" max="100" placeholder="0"><button type="button" class="clr" data-for="pctPgm" aria-label="ล้าง %"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><span class="u">%</span></div>
+          <div class="pg-note num" id="pgPgm">–</div>
         </div>
         <div class="field">
           <label class="lab" for="wtPgm">น้ำหนัก</label>
@@ -257,7 +265,7 @@ var CONFIG = {
   sheetFile: 'https://goldsilver00.github.io/price/sheet-url.txt',// ลิงก์ Google Sheet ราคาเงิน (ต่อ กก.)
   silverFile:'https://goldsilver00.github.io/price/silver.json',  // สำรอง
   pricesFile:'https://goldsilver00.github.io/price/prices.json',  // แพลตินัม แพลเลเดียม โรเดียม (ราคาต่อกรัม ชุดเดียวกับหน้าราคา)
-  pgmDefaultPct: 100,
+  pgmDefaultPct: '',
   gramsPerBaht: 15.244,
   perGram: 0.0656,      // ตัวคูณแปลงราคาบาททอง -> ราคาต่อกรัม (สูตรหน้าร้าน)
   plusKarats: ['23K'],       // กะรัตที่แสดงตาราง 94/95/96% + ประกันราคา
@@ -416,12 +424,28 @@ function calc(){
     var ok = S.gold && gg;
     $('tiers').innerHTML = CONFIG.tierPcts.map(function(pc){
       var v = ok ? (S.gold.barBuy + CONFIG.plusAmount) * (pc/100) * CONFIG.perGram * gg : 0;
-      return '<div class="tier"><span class="pc">'+pc+'%</span><span class="amt">'+fmt(v,2)+'<small>บาท</small></span></div>';
+      var pg = S.gold ? (S.gold.barBuy + CONFIG.plusAmount) * (pc/100) * CONFIG.perGram : 0;
+      return '<div class="tier"><span><span class="pc">'+pc+'%</span><span class="pg">กรัมละ '+fmt(pg,2)+'</span></span><span class="amt">'+fmt(v,2)+'<small>บาท</small></span></div>';
     }).join('');
     $('guarAmt').innerHTML = fmt(ok ? S.gold.barBuy * (1-CONFIG.guaranteeDeduct) * CONFIG.perGram * gg : 0, 2)+'<small>บาท</small>';
   }
+  perGramNotes();
   $('total').textContent = fmt(total,2);
   $('how').textContent = how;
+}
+
+document.addEventListener('click', function(e){
+  var b = e.target.closest('.clr'); if(!b) return;
+  var inp = $(b.dataset.for); inp.value = ''; inp.dispatchEvent(new Event('input')); inp.focus();
+});
+function perGramNotes(){
+  var note = function(id, v){ $(id).innerHTML = v>0 ? 'กรัมละ <b>'+fmt(v,2)+'</b> บาท' : 'กรอก % เพื่อดูราคาต่อกรัม'; };
+  var pg = num($('pctGold').value)||0, ps = num($('pctSilver').value)||0, pp = num($('pctPgm').value)||0;
+  var gb = S.gold ? S.gold.barBuy + (CONFIG.plusPctKarats.indexOf(S.karat)>-1 ? CONFIG.plusAmount : 0) : 0;
+  note('pgGold', gb * CONFIG.perGram * pg/100);
+  note('pgSilver', S.silverKg ? S.silverKg/1000 * ps/100 : 0);
+  var pm = S.pgmList && S.pgmList[S.pgm];
+  note('pgPgm', pm ? pm.pricePerGram * pp/100 : 0);
 }
 
 /* ---------- data ---------- */
