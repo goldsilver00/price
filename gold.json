@@ -1,8 +1,8 @@
 {
- "barBuy": 64600.0,
- "barSell": 64800.0,
- "seq": 3,
+ "barBuy": 64500.0,
+ "barSell": 64700.0,
+ "seq": 5,
  "date": "28/10/2569",
- "time": "10:39",
+ "time": "12:01",
  "source": "api.chnwt.dev (สมาคมค้าทองคำ)"
 }
