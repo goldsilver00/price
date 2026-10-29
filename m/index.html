@@ -46,7 +46,8 @@ body::before{content:"";position:fixed;inset:0 0 auto 0;height:calc(var(--u)*100
 .brand h1{margin:0;font:700 calc(var(--u)*20)/1.15 "Anuphan",sans-serif}
 .brand h1 b{color:var(--gold);font-family:"Bodoni Moda",serif;font-weight:700;margin-right:calc(var(--u)*5)}
 .brand p{margin:calc(var(--u)*2) 0 0;font:500 calc(var(--u)*13)/1.2 "Anuphan",sans-serif;color:#f6dfc0}
-.clock{text-align:right;font:500 calc(var(--u)*12)/1.25 "Anuphan",sans-serif;color:#f6dfc0}
+.mascot{position:absolute;right:calc(var(--u)*92);bottom:0;height:calc(var(--u)*98);z-index:0;pointer-events:none;filter:drop-shadow(0 calc(var(--u)*4) calc(var(--u)*8) rgba(0,0,0,.35))}
+.clock{position:relative;z-index:1;text-align:right;font:500 calc(var(--u)*12)/1.25 "Anuphan",sans-serif;color:#f6dfc0}
 .clock .num{display:block;font-size:calc(var(--u)*20);font-weight:700;color:#fff}
 
 main{position:relative;z-index:1;flex:1;min-height:0;margin-top:calc(var(--u)*-30);padding:0 calc(var(--u)*12) calc(var(--u)*8);
@@ -75,6 +76,7 @@ main{position:relative;z-index:1;flex:1;min-height:0;margin-top:calc(var(--u)*-3
 .silver .pill{background:var(--wine)}
 .silver .prices{display:flex;align-items:flex-end;justify-content:space-between;gap:calc(var(--u)*10);margin-top:calc(var(--u)*6)}
 .silver .kg .num{font-size:calc(var(--u)*38);color:var(--burgundy)}
+.silver .smascot{height:calc(var(--u)*66);margin:0 0 calc(var(--u)*-6) auto;align-self:flex-end;filter:drop-shadow(0 calc(var(--u)*3) calc(var(--u)*5) rgba(74,25,28,.18))}
 .silver .g{text-align:right;padding-left:calc(var(--u)*12);border-left:1px solid var(--line)}
 .silver .g .num{font-size:calc(var(--u)*26);color:var(--ink)}
 
@@ -101,6 +103,7 @@ main{position:relative;z-index:1;flex:1;min-height:0;margin-top:calc(var(--u)*-3
   <header>
     <img class="logo" src="logo.png" alt="LH หลอมทอง">
     <div class="brand"><h1><b>LH</b>หลอมทอง</h1><p>ราคารับซื้อวันนี้</p></div>
+    <img class="mascot" src="../img/mascot-cheer.webp" alt="" aria-hidden="true">
     <div class="clock"><span class="num" id="time">&nbsp;</span><span id="today">&nbsp;</span></div>
   </header>
 
@@ -117,6 +120,7 @@ main{position:relative;z-index:1;flex:1;min-height:0;margin-top:calc(var(--u)*-3
       <div class="row"><div class="label">เงิน 99.99%</div><span class="pill">รับซื้อ</span></div>
       <div class="prices">
         <div class="kg"><span class="num v skeleton" id="sKg">00,000</span><span class="unit">บาท / กิโลกรัม</span></div>
+        <img class="smascot" src="../img/mascot-play.webp" alt="" aria-hidden="true">
         <div class="g"><span class="num v skeleton" id="sG">00</span><span class="unit">บาท / กรัม</span></div>
       </div>
     </section>

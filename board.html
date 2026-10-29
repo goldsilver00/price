@@ -47,6 +47,11 @@ header{display:flex;align-items:center;gap:40px;flex-wrap:wrap}
 .eyebrow{font-family:var(--display);font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--red);font-size:22px}
 .brand h1{margin:.15em 0 0;font-weight:700;font-size:76px;line-height:1.15;color:var(--burgundy);text-wrap:balance}
 .brand .sub{margin-top:.3em;font-size:26px;color:var(--muted);font-weight:500}
+.metal .price{position:relative}
+.metal .mm{position:absolute;right:22px;bottom:10px;height:170px;filter:drop-shadow(0 10px 16px rgba(109,12,19,.18))}
+.hero{position:relative}
+.hero .hm{position:absolute;right:30px;top:150px;height:150px;filter:drop-shadow(0 10px 16px rgba(109,12,19,.18))}
+.tvm{height:290px;margin:-60px -10px -62px 0;align-self:flex-end;filter:drop-shadow(0 12px 18px rgba(109,12,19,.25))}
 .clock{text-align:right;font-variant-numeric:tabular-nums;background:var(--burgundy);color:#fff;
   padding:22px 32px;border-radius:20px;box-shadow:0 10px 26px rgba(109,12,19,.25)}
 .clock .time{font-family:var(--display);font-weight:700;font-size:64px;line-height:1}
@@ -160,6 +165,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
           <h1>ราคารับซื้อโลหะมีค่าวันนี้</h1>
           <div class="sub">แพลตินัม · แพลเลเดียม · โรเดียม</div>
         </div>
+        <img class="tvm" src="img/mascot-smile.webp" alt="">
         <div class="clock"><div class="time">--:--</div><div class="date"></div></div>
       </header>
       <hr class="rule">
@@ -180,6 +186,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
           <h1>ราคารับซื้อเงินวันนี้</h1>
           <div class="sub">ราคาตามความบริสุทธิ์ ต่อกิโลกรัมและต่อกรัม</div>
         </div>
+        <img class="tvm" src="img/mascot-cheer.webp" alt="">
         <div class="clock"><div class="time">--:--</div><div class="date"></div></div>
       </header>
       <hr class="rule">
@@ -190,6 +197,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
             <div class="sym" aria-hidden="true"><i>47</i><b>Ag</b></div>
           </div>
           <div class="body" id="silverHero"></div>
+          <img class="hm" src="img/mascot-ingot.webp" alt="">
         </article>
         <div class="grades" id="grades"></div>
       </div>
@@ -231,7 +239,7 @@ document.querySelectorAll(".asof").forEach(el => el.textContent = CONFIG.asOf);
 /* page 1 */
 const baseTHB = m => m.thbPerGram ?? m.usdPerGram * CONFIG.fx;
 const net = m => Math.round(baseTHB(m) * (1 - (m.discount ?? CONFIG.discount)) * 100) / 100;   /* ส่วนลดแยกรายโลหะได้ */
-document.getElementById("metals").innerHTML = CONFIG.metals.map(m => `
+document.getElementById("metals").innerHTML = CONFIG.metals.map((m, i) => `
   <article class="metal">
     <div class="band">
       <div class="names"><div class="th">${m.th}</div><div class="en">${m.en}</div></div>
@@ -241,6 +249,7 @@ document.getElementById("metals").innerHTML = CONFIG.metals.map(m => `
       <div class="label">ราคาต่อกรัม</div>
       <div class="num">${fmt0(net(m))}</div>
       <span class="unit">บาท / กรัม</span>
+      <img class="mm" src="img/mascot-${["look","ingot","play"][i % 3]}.webp" alt="">
     </div>
   </article>`).join("");
 

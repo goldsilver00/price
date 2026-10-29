@@ -8,18 +8,18 @@
     {
      "value": "kg:99.99",
      "text": null,
-     "font": "800 112px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "font": "800 108.527px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
      "color": "rgb(74, 25, 28)",
-     "cy": 765.2,
+     "cy": 764.9,
      "gap": 0
     },
     {
      "value": null,
      "text": "บาท / กก.",
-     "font": "600 25.9px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "font": "600 25.0968px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
      "color": "rgb(43, 18, 20)",
-     "cy": 796.2,
-     "gap": 9.1
+     "cy": 795.4,
+     "gap": 8.8
     }
    ]
   },
@@ -33,7 +33,7 @@
      "text": null,
      "font": "800 64px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
      "color": "rgb(165, 31, 38)",
-     "cy": 899.4,
+     "cy": 897.6,
      "gap": 0
     },
     {
@@ -41,7 +41,7 @@
      "text": "บาท / กรัม",
      "font": "600 25.9px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
      "color": "rgb(43, 18, 20)",
-     "cy": 913.4,
+     "cy": 911.6,
      "gap": 9.1
     }
    ]

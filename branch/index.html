@@ -35,6 +35,8 @@
   a{text-decoration:none}
   .th{font-family:'Noto Sans Thai',sans-serif}
   header{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+  header{position:relative}
+  header img.mascot{position:absolute;right:-4px;top:-6px;width:auto;height:118px;border:0;border-radius:0;box-shadow:none;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(0,0,0,.45))}
   header img{width:80px;height:80px;border-radius:20px;border:1.5px solid var(--gold);box-shadow:0 8px 24px rgba(0,0,0,.45);object-fit:cover}
   .brand{display:flex;align-items:baseline;gap:8px;margin:0}
   .brand .lh{font-family:'Bodoni Moda',serif;font-weight:700;font-size:30px;letter-spacing:1px;color:var(--gold)}
@@ -57,9 +59,11 @@
   footer{display:flex;flex-direction:column;gap:10px}
   .line{background:var(--red);color:#fff;font-family:'Noto Sans Thai',sans-serif;font-size:14px}
   .share{border:1px solid rgba(255,222,89,.35);background:rgba(255,255,255,.06);color:var(--gold);font-family:'Noto Sans Thai',sans-serif;font-size:14px}
+  .tag .tmascot{height:40px;vertical-align:middle;margin:-10px 8px -8px 0}
   .tag{margin:0;text-align:center;font-family:'Bodoni Moda',serif;font-size:11px;letter-spacing:2px;color:#d9b98a}
   @media (max-height:700px){
     header img{width:60px;height:60px;border-radius:16px}
+    header img.mascot{width:auto;height:96px}
     .brand .lh{font-size:26px}.brand .name{font-size:21px}
     .card{padding:11px 14px;gap:8px}
     .btn{height:42px}
@@ -70,6 +74,7 @@
 <div class="page">
   <header>
     <img src="../m/logo.png" alt="โลโก้ LH หลอมทอง">
+    <img class="mascot" src="../img/mascot-wave.webp" alt="" aria-hidden="true">
     <h1 class="brand"><span class="lh">LH</span><span class="name">หลอมทอง</span></h1>
     <p class="sub th">เลือกสาขาที่สะดวก กดโทรหรือนำทางได้ทันที</p>
   </header>
@@ -87,7 +92,7 @@
         <span id="shareLabel">แชร์ลิงก์</span>
       </button>
     </div>
-    <p class="tag">LH LHOMTHONG · GOLD</p>
+    <p class="tag"><img class="tmascot" src="../img/mascot-run.webp" alt="" aria-hidden="true">LH LHOMTHONG · GOLD</p>
   </footer>
 </div>
 

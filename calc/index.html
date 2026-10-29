@@ -29,6 +29,8 @@
   }
   /* header */
   header{display:flex;align-items:center;gap:10px}
+  header{position:relative}
+  header img.mascot{position:absolute;right:92px;bottom:-17px;width:auto;height:66px;border:0;border-radius:0;background:none;object-fit:contain;pointer-events:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))}
   header img{width:42px;height:42px;border-radius:11px;border:1px solid var(--gold);object-fit:cover;background:var(--burgundy)}
   .brand{flex:1;min-width:0}
   .brand h1{margin:0;display:flex;align-items:baseline;gap:6px;line-height:1}
@@ -119,6 +121,7 @@
 
   /* result */
   .result{margin-top:auto;padding:15px 16px;border-radius:20px;background:linear-gradient(135deg,#ffe57a 0%,#ffcf5c 45%,#e9a83a 100%);color:var(--ink);box-shadow:0 10px 30px rgba(255,189,89,.22)}
+  .result{position:relative}
   .result .top{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700}
   .result .big{margin:3px 0 1px;font-size:40px;font-weight:800;letter-spacing:-.5px;line-height:1.1}
   .result .big small{font-family:'Noto Sans Thai',sans-serif;font-size:18px;font-weight:700;margin-left:6px}
@@ -137,6 +140,8 @@
   .guar .tag svg{flex:none}
   .reset{border:0;background:rgba(42,7,9,.12);color:var(--ink);font:inherit;font-size:12px;font-weight:700;padding:6px 10px;border-radius:999px;cursor:pointer}
   .notice{display:flex;gap:8px;align-items:flex-start;margin:0;padding:9px 12px;border-radius:12px;background:rgba(0,0,0,.3);font-size:12px;line-height:1.5;color:var(--cream)}
+  .notice .nmascot{flex:none;height:46px;margin:-6px 0 -6px -4px}
+  .notice{align-items:center}
   .notice svg{flex:none;margin-top:2px;color:var(--gold)}
   .foot{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .foot a{height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;font-weight:700;font-size:14px}
@@ -163,6 +168,7 @@
       <h1><span class="lh">LH</span><span class="nm">หลอมทอง</span></h1>
       <p>ประเมินราคารับซื้อเบื้องต้น</p>
     </div>
+    <img class="mascot" src="../img/mascot-look.webp" alt="" aria-hidden="true">
     <span class="live off" id="live"><i></i><span id="liveTxt">กำลังโหลด</span></span>
   </header>
 
@@ -276,7 +282,7 @@
   </section>
 
   <p class="notice" id="notice">
-    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg>
+    <img class="nmascot" src="../img/mascot-thanks.webp" alt="" aria-hidden="true">
     <span id="noticeTxt">ราคานี้เป็นการประเมินเบื้องต้น ราคารับซื้อจริงขึ้นอยู่กับ % และน้ำหนักหลังหลอมเท่านั้น</span>
   </p>
 
