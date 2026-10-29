@@ -24,6 +24,7 @@
     th: "'Anuphan','Leelawadee UI','Tahoma',sans-serif",
     en: "'Public Sans','Anuphan',sans-serif",
     bod: "'Bodoni Moda','Times New Roman',serif",
+    cz: "'Cinzel','Bodoni Moda','Times New Roman',serif",
   };
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function money(n) { return Number(n || 0).toLocaleString('en-US'); }
@@ -35,11 +36,11 @@
 
   // ---------- โครงตำแหน่ง (หน่วย u) ----------
   var L = {
-    lh: { x: 4.6, cy: 9.2, size: 10.2 },
-    th: { x: 4.7, cy: 15.4, size: 3.95 },
+    lh: { x: 4.5, cy: 9.4, size: 9.2, ls: 1.0 },
+    th: { x: 4.6, cy: 15.6, size: 3.9, ls: 0.2 },
     div: { x: 23.0, y: 4.6, w: 0.32, h: 11.6 },
     title: { x: 25.4, cy: 8.8, size: 5.3 },
-    sub: { x: 25.5, cy: 13.8, size: 3.35 },
+    sub: { x: 25.5, cy: 13.9, size: 2.7, ls: 0.12 },
     box: { x: 4.5, y: 18.2, w: 45.5, h: 13.2, r: 2.2 },
     labelH: 4.3,
     code: { cy: 27.0, size: 7.4, ls: 0.45 },
@@ -73,11 +74,12 @@
     var b = L.box, cx = b.x + b.w / 2;
     var s = '<div class="rc ' + v + '">';
     if (v === 'line') s += '<div class="swirl"></div>';
-    s += txt('lh', 'LH', L.lh.x, L.lh.cy, L.lh.size, F.bod, 900, T.logo, 'letter-spacing:' + u(0.2));
-    s += txt('th', 'หลอมทอง', L.th.x, L.th.cy, L.th.size, F.th, 800, T.logo, 'font-style:italic');
+    var grad = v === 'line' ? 'background:linear-gradient(180deg,#fff3b8 0%,#f5c75a 50%,#c98f2a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;' : '';
+    s += txt('lh', 'LH', L.lh.x, L.lh.cy, L.lh.size, F.cz, 700, T.logo, 'letter-spacing:' + u(L.lh.ls) + ';' + grad);
+    s += txt('th', 'หลอมทอง', L.th.x, L.th.cy, L.th.size, F.th, 800, T.logo, 'letter-spacing:' + u(L.th.ls) + ';' + grad);
     s += '<div style="left:' + u(L.div.x) + ';top:' + u(L.div.y) + ';width:' + u(L.div.w) + ';height:' + u(L.div.h) + ';background:' + T.divider + '"></div>';
     s += txt('title', 'บัตรแนะนำเพื่อน', L.title.x, L.title.cy, L.title.size, F.th, 700, T.title);
-    s += txt('sub', 'Friend Referral Card', L.sub.x, L.sub.cy, L.sub.size, F.bod, 900, T.sub, 'font-style:italic');
+    s += txt('sub', 'Friend Referral Card', L.sub.x, L.sub.cy, L.sub.size, F.cz, 900, T.sub, 'letter-spacing:' + u(L.sub.ls));
     // กรอบรหัส
     if (v === 'print') {
       s += '<div style="left:' + u(b.x) + ';top:' + u(b.y) + ';width:' + u(b.w) + ';height:' + u(b.h) + ';border:' + u(0.45) + ' solid ' + T.boxLine + ';border-radius:' + u(b.r) + ';background:#fff;overflow:hidden">' +
@@ -119,7 +121,7 @@
     var cv = document.createElement('canvas'); cv.width = Math.round(W * k); cv.height = Math.round(H * k);
     var x = cv.getContext('2d');
     try {
-      await Promise.all(['800 40px Anuphan', '700 40px Anuphan', 'italic 800 40px Anuphan', '800 40px "Public Sans"', '900 40px "Bodoni Moda"', 'italic 900 40px "Bodoni Moda"']
+      await Promise.all(['800 40px Anuphan', '700 40px Anuphan', 'italic 800 40px Anuphan', '800 40px "Public Sans"', '700 40px Cinzel', '900 40px Cinzel']
         .map(function (f) { return document.fonts.load(f); }));
     } catch (e) {}
     var masc = await img(BASE + 'img/mascot-wave.webp');
@@ -138,12 +140,17 @@
       g3.addColorStop(0, 'rgba(255,215,120,.2)'); g3.addColorStop(1, 'rgba(255,215,120,0)'); x.fillStyle = g3; x.fillRect(0, 0, cv.width, cv.height);
     } else { x.fillStyle = '#fff'; x.fillRect(0, 0, cv.width, cv.height); }
     // หัวบัตร
-    font('', 900, L.lh.size, '"Bodoni Moda", serif'); if ('letterSpacing' in x) x.letterSpacing = (0.2 * k) + 'px';
-    text('LH', L.lh.x, L.lh.cy, T.logo); if ('letterSpacing' in x) x.letterSpacing = '0px';
-    font('italic', 800, L.th.size, 'Anuphan, sans-serif'); text('หลอมทอง', L.th.x, L.th.cy, T.logo);
+    function logoFill(cy, size) {
+      if (v !== 'line') return T.logo;
+      var g = x.createLinearGradient(0, (cy - size / 2) * k, 0, (cy + size / 2) * k);
+      g.addColorStop(0, '#fff3b8'); g.addColorStop(0.5, '#f5c75a'); g.addColorStop(1, '#c98f2a'); return g;
+    }
+    function spaced(ls) { if ('letterSpacing' in x) x.letterSpacing = (ls * k) + 'px'; }
+    font('', 700, L.lh.size, 'Cinzel, serif'); spaced(L.lh.ls); text('LH', L.lh.x, L.lh.cy, logoFill(L.lh.cy, L.lh.size));
+    font('', 800, L.th.size, 'Anuphan, sans-serif'); spaced(L.th.ls); text('หลอมทอง', L.th.x, L.th.cy, logoFill(L.th.cy, L.th.size)); spaced(0);
     x.fillStyle = T.divider; x.fillRect(L.div.x * k, L.div.y * k, L.div.w * k, L.div.h * k);
     font('', 700, L.title.size, 'Anuphan, sans-serif'); text('บัตรแนะนำเพื่อน', L.title.x, L.title.cy, T.title);
-    font('italic', 900, L.sub.size, '"Bodoni Moda", serif'); text('Friend Referral Card', L.sub.x, L.sub.cy, T.sub);
+    font('', 900, L.sub.size, 'Cinzel, serif'); spaced(L.sub.ls); text('Friend Referral Card', L.sub.x, L.sub.cy, T.sub); spaced(0);
     // กรอบรหัส
     var b = L.box, cx = b.x + b.w / 2;
     if (v === 'line') {
@@ -187,6 +194,8 @@
   function fontCss() {
     return "@font-face{font-family:'Anuphan';src:url('" + BASE + "fonts/Anuphan.ttf') format('truetype');font-weight:100 900;}" +
       "@font-face{font-family:'Public Sans';src:url('" + BASE + "fonts/PublicSans.ttf') format('truetype');font-weight:100 900;}" +
+      "@font-face{font-family:'Cinzel';src:url('" + BASE + "fonts/Cinzel-700.woff2') format('woff2');font-weight:700;}" +
+      "@font-face{font-family:'Cinzel';src:url('" + BASE + "fonts/Cinzel-900.woff2') format('woff2');font-weight:900;}" +
       "@font-face{font-family:'Bodoni Moda';src:url('" + BASE + "fonts/Bodoni.ttf') format('truetype');font-weight:400 900;}";
   }
   root.RefCard = { base: BASE, html: html, css: css, fontCss: fontCss, toCanvas: toCanvas, W: W, H: H };
