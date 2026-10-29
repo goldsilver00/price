@@ -73,11 +73,11 @@
     var b = L.box, cx = b.x + b.w / 2;
     var s = '<div class="rc ' + v + '">';
     if (v === 'line') s += '<div class="swirl"></div>';
-    s += txt('lh', 'LH', L.lh.x, L.lh.cy, L.lh.size, F.bod, 600, T.logo, 'letter-spacing:' + u(0.2));
+    s += txt('lh', 'LH', L.lh.x, L.lh.cy, L.lh.size, F.bod, 900, T.logo, 'letter-spacing:' + u(0.2));
     s += txt('th', 'หลอมทอง', L.th.x, L.th.cy, L.th.size, F.th, 800, T.logo, 'font-style:italic');
     s += '<div style="left:' + u(L.div.x) + ';top:' + u(L.div.y) + ';width:' + u(L.div.w) + ';height:' + u(L.div.h) + ';background:' + T.divider + '"></div>';
     s += txt('title', 'บัตรแนะนำเพื่อน', L.title.x, L.title.cy, L.title.size, F.th, 700, T.title);
-    s += txt('sub', 'Friend Referral Card', L.sub.x, L.sub.cy, L.sub.size, F.bod, 600, T.sub, 'font-style:italic');
+    s += txt('sub', 'Friend Referral Card', L.sub.x, L.sub.cy, L.sub.size, F.bod, 900, T.sub, 'font-style:italic');
     // กรอบรหัส
     if (v === 'print') {
       s += '<div style="left:' + u(b.x) + ';top:' + u(b.y) + ';width:' + u(b.w) + ';height:' + u(b.h) + ';border:' + u(0.45) + ' solid ' + T.boxLine + ';border-radius:' + u(b.r) + ';background:#fff;overflow:hidden">' +
@@ -119,7 +119,7 @@
     var cv = document.createElement('canvas'); cv.width = Math.round(W * k); cv.height = Math.round(H * k);
     var x = cv.getContext('2d');
     try {
-      await Promise.all(['800 40px Anuphan', '700 40px Anuphan', 'italic 800 40px Anuphan', '800 40px "Public Sans"', '600 40px "Bodoni Moda"', 'italic 600 40px "Bodoni Moda"']
+      await Promise.all(['800 40px Anuphan', '700 40px Anuphan', 'italic 800 40px Anuphan', '800 40px "Public Sans"', '900 40px "Bodoni Moda"', 'italic 900 40px "Bodoni Moda"']
         .map(function (f) { return document.fonts.load(f); }));
     } catch (e) {}
     var masc = await img(BASE + 'img/mascot-wave.webp');
@@ -138,12 +138,12 @@
       g3.addColorStop(0, 'rgba(255,215,120,.2)'); g3.addColorStop(1, 'rgba(255,215,120,0)'); x.fillStyle = g3; x.fillRect(0, 0, cv.width, cv.height);
     } else { x.fillStyle = '#fff'; x.fillRect(0, 0, cv.width, cv.height); }
     // หัวบัตร
-    font('', 600, L.lh.size, '"Bodoni Moda", serif'); if ('letterSpacing' in x) x.letterSpacing = (0.2 * k) + 'px';
+    font('', 900, L.lh.size, '"Bodoni Moda", serif'); if ('letterSpacing' in x) x.letterSpacing = (0.2 * k) + 'px';
     text('LH', L.lh.x, L.lh.cy, T.logo); if ('letterSpacing' in x) x.letterSpacing = '0px';
     font('italic', 800, L.th.size, 'Anuphan, sans-serif'); text('หลอมทอง', L.th.x, L.th.cy, T.logo);
     x.fillStyle = T.divider; x.fillRect(L.div.x * k, L.div.y * k, L.div.w * k, L.div.h * k);
     font('', 700, L.title.size, 'Anuphan, sans-serif'); text('บัตรแนะนำเพื่อน', L.title.x, L.title.cy, T.title);
-    font('italic', 600, L.sub.size, '"Bodoni Moda", serif'); text('Friend Referral Card', L.sub.x, L.sub.cy, T.sub);
+    font('italic', 900, L.sub.size, '"Bodoni Moda", serif'); text('Friend Referral Card', L.sub.x, L.sub.cy, T.sub);
     // กรอบรหัส
     var b = L.box, cx = b.x + b.w / 2;
     if (v === 'line') {
