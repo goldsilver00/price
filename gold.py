@@ -3,7 +3,7 @@ and save it to gold.json for the mobile price page. Exit 1 if it could not be re
 
 goldtraders.or.th blocks GitHub's servers (Cloudflare "Just a moment..." page), so the price is
 read from api.chnwt.dev/thai-gold-api, a public mirror of the association's announcement."""
-import json, pathlib, re, sys, requests
+import datetime as dt, json, pathlib, re, sys, time, requests
 
 HERE = pathlib.Path(__file__).resolve().parent
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
@@ -30,13 +30,27 @@ def from_mirror():
 
 def main():
     out, errors = None, []
-    for f in (from_gta, from_mirror, from_mirror):
+    for f in (from_gta, from_mirror, from_mirror, from_mirror, from_mirror):
         try:
             out = f(); break
         except Exception as e:
             errors.append(f"{f.__name__}: {e}")
+            if f is from_mirror:
+                time.sleep(20)  # the mirror sometimes hiccups for a few seconds
     if not out:
-        print("ERROR: cannot read gold price:", errors); return 1
+        # A single missed check is harmless: customers' phones read the live price themselves and the
+        # next check runs soon. Only report a failure (email) when the saved copy is from an earlier day
+        # and it is already late morning, i.e. the source has really been down for a while.
+        now = dt.datetime.now(dt.timezone(dt.timedelta(hours=7)))
+        try:
+            saved = json.loads((HERE / "gold.json").read_text(encoding="utf-8")).get("date", "")
+        except Exception:
+            saved = ""
+        today = f"{now.day}/{now.month}/{now.year + 543}"
+        print("WARNING: cannot read gold price:", errors)
+        if saved != today and now.hour >= 11:
+            print("ERROR: no gold price saved today and the source is still down"); return 1
+        return 0
     if not (10000 < out["barBuy"] < 500000 and out["barBuy"] <= out["barSell"]):
         print("ERROR: gold price looks wrong:", out); return 1
     f = HERE / "gold.json"
