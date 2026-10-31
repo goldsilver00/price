@@ -56,6 +56,15 @@
   .btn:active{transform:scale(.97)}
   .call{background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 100%);color:#3a0a0d;font-family:'Public Sans',sans-serif;box-shadow:0 4px 14px rgba(255,189,89,.25)}
   .nav{border:1.5px solid var(--gold);color:var(--gold);font-family:'Noto Sans Thai',sans-serif}
+  button.btn{font-family:inherit;background:none;width:100%}
+  .sheet-wrap{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;justify-content:center}
+  .sheet{width:100%;max-width:480px;background:#2a0a0d;border-top:1.5px solid var(--gold);border-radius:20px 20px 0 0;padding:18px 16px calc(16px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:10px;font-family:'Noto Sans Thai',sans-serif}
+  .sh-t{color:var(--gold);font-weight:700;font-size:17px;text-align:center}
+  .sh-a{color:#e9d3b5;font-size:13px;text-align:center;margin-top:-4px}
+  .sh-b{display:flex;align-items:center;justify-content:center;height:48px;border-radius:12px;font:700 16px 'Noto Sans Thai',sans-serif;text-decoration:none;border:1.5px solid var(--gold);color:var(--gold);background:transparent;cursor:pointer}
+  .sh-b.g{background:var(--gold);color:#2a0a0d;border-color:var(--gold)}
+  .sh-b.x{border-color:rgba(255,255,255,.2);color:#ccc}
+  .sh-n{font-size:12px;line-height:1.5;color:#f3d9a8;background:rgba(255,222,89,.08);border-radius:10px;padding:8px 10px}
   footer{display:flex;flex-direction:column;gap:10px}
   .line{background:var(--red);color:#fff;font-family:'Noto Sans Thai',sans-serif;font-size:14px}
   .share{border:1px solid rgba(255,222,89,.35);background:rgba(255,255,255,.06);color:var(--gold);font-family:'Noto Sans Thai',sans-serif;font-size:14px}
@@ -98,9 +107,9 @@
 
 <script>
   var BRANCHES = [
-    { name:'สาขาตลาดดวงแก้ว', area:'อ.ปากเกร็ด', open:540, close:1050, hours:'9:00–17:30', openText:'9:00', phone:'02-121-7261', tel:'021217261', map:'https://www.google.com/maps/search/?api=1&query=13.9467692%2C100.5460115&query_place_id=ChIJCZG74FqD4jARXgpimIzsNJ4' },
-    { name:'สาขาตลาดชุมพลพาณิชย์', area:'อ.บางใหญ่', open:510, close:1110, hours:'8:30–18:30', openText:'8:30', phone:'02-043-5353', tel:'020435353', map:'https://www.google.com/maps/search/?api=1&query=13.8469801%2C100.3784346&query_place_id=ChIJc-0S_OyR4jAR6JkbVk-eXSw' },
-    { name:'สาขาดอนเมือง', area:'สรงประภา', open:540, close:1050, hours:'9:00–17:30', openText:'9:00', phone:'02-077-4201', tel:'020774201', map:'https://www.google.com/maps/search/?api=1&query=13.9241794%2C100.5982387&query_place_id=ChIJaT3SJ6uD4jAR4se1V41nok8' }
+    { name:'สาขาตลาดดวงแก้ว', area:'อ.ปากเกร็ด', open:540, close:1050, hours:'9:00–17:30', openText:'9:00', phone:'02-121-7261', tel:'021217261', lat:13.9467692, lng:100.5460115, pid:'ChIJCZG74FqD4jARXgpimIzsNJ4', gname:'LH หลอมทอง สาขาปากเกร็ด', addr:'77/556 หมู่ 1 ต.บ้านใหม่ อ.ปากเกร็ด จ.นนทบุรี 11120' },
+    { name:'สาขาตลาดชุมพลพาณิชย์', area:'อ.บางใหญ่', open:510, close:1110, hours:'8:30–18:30', openText:'8:30', phone:'02-043-5353', tel:'020435353', lat:13.8469801, lng:100.3784346, pid:'ChIJc-0S_OyR4jAR6JkbVk-eXSw', gname:'LH หลอมทอง สาขาตลาดชุมพลพาณิชย์', addr:'ตลาดชุมพลพาณิชย์ 69/1 ห้อง U1-U2 ต.บางแม่นาง อ.บางใหญ่ จ.นนทบุรี 11140' },
+    { name:'สาขาดอนเมือง', area:'สรงประภา', open:540, close:1050, hours:'9:00–17:30', openText:'9:00', phone:'02-077-4201', tel:'020774201', lat:13.9241794, lng:100.5982387, pid:'ChIJaT3SJ6uD4jAR4se1V41nok8', gname:'LH หลอมทอง สาขาดอนเมือง', addr:'222/5 ถ.สรงประภา แขวงสีกัน เขตดอนเมือง กรุงเทพฯ 10210' }
   ];
   var ICON_PIN = '<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>';
   var ICON_CLOCK = '<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
@@ -122,12 +131,41 @@
         '<div class="meta th">' + ICON_PIN + '<span>' + b.area + '</span><span class="dot">·</span>' + ICON_CLOCK + '<span>ทุกวัน ' + b.hours + ' น.</span></div>' +
         '<div class="btns">' +
           '<a class="btn call" href="tel:' + b.tel + '" aria-label="โทร ' + b.name + ' ' + b.phone + '">' + ICON_PHONE + '<span>' + b.phone + '</span></a>' +
-          '<a class="btn nav" href="' + b.map + '" target="_blank" rel="noopener">' + ICON_NAV + '<span>นำทาง</span></a>' +
+          '<button type="button" class="btn nav" data-nav="' + i + '">' + ICON_NAV + '<span>นำทาง</span></button>' +
         '</div></section>';
     }).join('');
   }
   render();
   setInterval(render, 60000);
+
+  // นำทาง: เลือกแอปแผนที่ (เปิดจาก LINE / Messenger บางเครื่องส่งลิงก์ให้ Google Maps ไม่ได้ เลยมีทางเลือกสำรอง)
+  var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var inApp = /FBAN|FBAV|FB_IAB|Messenger|Line\/|Instagram/i.test(navigator.userAgent);
+  document.getElementById('branches').addEventListener('click', function(e){
+    var btn = e.target.closest('[data-nav]'); if (!btn) return;
+    openNav(BRANCHES[Number(btn.getAttribute('data-nav'))]);
+  });
+  function openNav(b){
+    var ll = b.lat + ',' + b.lng;
+    var g = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(ll) + '&destination_place_id=' + b.pid + '&travelmode=driving';
+    var a = 'https://maps.apple.com/?daddr=' + encodeURIComponent(ll) + '&q=' + encodeURIComponent(b.gname);
+    var sh = document.createElement('div'); sh.className = 'sheet-wrap';
+    sh.innerHTML = '<div class="sheet" role="dialog" aria-label="เลือกแอปนำทาง">' +
+      '<div class="sh-t">นำทางไป ' + b.name + '</div><div class="sh-a">' + b.addr + '</div>' +
+      '<a class="sh-b g" href="' + g + '">Google Maps</a>' +
+      (isIOS ? '<a class="sh-b ap" href="' + a + '">Apple Maps (แผนที่ของ iPhone)</a>' : '') +
+      '<button type="button" class="sh-b cp">คัดลอกที่อยู่</button>' +
+      (inApp ? '<div class="sh-n">ถ้ากดแล้วเปิดไม่ได้ ให้กดปุ่ม ⋯ มุมบนขวา แล้วเลือก “เปิดในเบราว์เซอร์” (Safari / Chrome) แล้วกดนำทางอีกครั้ง</div>' : '') +
+      '<button type="button" class="sh-b x">ปิด</button></div>';
+    document.body.appendChild(sh);
+    sh.addEventListener('click', function(e){ if (e.target === sh || e.target.classList.contains('x')) sh.remove(); });
+    sh.querySelector('.cp').addEventListener('click', function(){
+      var t = b.gname + ' ' + b.addr, btn = this;
+      var done = function(){ btn.textContent = 'คัดลอกแล้ว ✓'; };
+      if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, function(){ prompt('คัดลอกที่อยู่', t); });
+      else prompt('คัดลอกที่อยู่', t);
+    });
+  }
 
   document.getElementById('share').addEventListener('click', function(){
     var url = location.href;
