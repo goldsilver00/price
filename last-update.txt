@@ -1,4 +1,4 @@
-6 พ.ย. 2569  fx 33.44 (open.er-api.com Fri, 06 Nov 2026 00:02:31 +0000)
-platinum: 1305 baht/g
-palladium: 870 baht/g
-rhodium: 5580 baht/g
+7 พ.ย. 2569  fx 33.55 (open.er-api.com Sat, 07 Nov 2026 00:02:31 +0000)
+platinum: 1324 baht/g
+palladium: 866 baht/g
+rhodium: 5598 baht/g
