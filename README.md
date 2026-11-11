@@ -14,4 +14,6 @@ Mobile page (for customers): https://goldsilver00.github.io/price/m/
 - Pt/Pd/Rh: prices.json, written by update.py each morning (same numbers as the TV)
 - silver: the same Google Sheet as the TV
 
-Silver-only TV link: https://goldsilver00.github.io/price/silver/ (same board as the main link, fixed on the silver page; also works as ?only=silver)
+Single-page TV links (same board as the main link, which still switches between both pages):
+- silver only: https://goldsilver00.github.io/price/silver/ (?only=silver)
+- platinum only: https://goldsilver00.github.io/price/platinum/ (?only=platinum)

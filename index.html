@@ -20,7 +20,7 @@ const CLOCK_BOX = { right: 1830, timeY: 185, dateY: 222 };   /* inside the red b
 const cv = document.getElementById("tv"), ctx = cv.getContext("2d");
 const stamp = Date.now();
 let images = [], cur = 0;
-/* ?only=silver (or the /silver/ link) shows just the silver page, without switching to platinum */
+/* ?only=silver or ?only=platinum (the /silver/ and /platinum/ links) show one page only, without switching */
 const ONLY = new URLSearchParams(location.search).get("only") || "";
 if (ONLY === "silver") cur = 1;
 
