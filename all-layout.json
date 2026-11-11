@@ -1,0 +1,379 @@
+{
+ "lines": [
+  {
+   "align": "left",
+   "x": 1188.15625,
+   "limit": 1830.40625,
+   "pieces": [
+    {
+     "value": "kg:99.99",
+     "text": null,
+     "font": "800 92px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(74, 25, 28)",
+     "cy": 494.4,
+     "gap": 0
+    },
+    {
+     "value": null,
+     "text": "บาท / กก.",
+     "font": "600 23px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(43, 18, 20)",
+     "cy": 518.9,
+     "gap": 8
+    }
+   ]
+  },
+  {
+   "align": "right",
+   "x": 1830.40625,
+   "limit": 1188.15625,
+   "pieces": [
+    {
+     "value": "g:99.99",
+     "text": null,
+     "font": "800 50px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(165, 31, 38)",
+     "cy": 589.7,
+     "gap": 0
+    },
+    {
+     "value": null,
+     "text": "บาท / กรัม",
+     "font": "600 23px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(43, 18, 20)",
+     "cy": 599.7,
+     "gap": 8
+    }
+   ]
+  },
+  {
+   "align": "left",
+   "x": 930.15625,
+   "limit": 1190.90625,
+   "pieces": [
+    {
+     "value": "kg:95",
+     "text": null,
+     "font": "800 41.8182px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(74, 25, 28)",
+     "cy": 744.1,
+     "gap": 0
+    },
+    {
+     "value": null,
+     "text": "บาท / กก.",
+     "font": "600 16.3636px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(43, 18, 20)",
+     "cy": 753.6,
+     "gap": 5.7
+    }
+   ]
+  },
+  {
+   "align": "left",
+   "x": 930.15625,
+   "limit": 1190.90625,
+   "pieces": [
+    {
+     "value": null,
+     "text": "กรัมละ",
+     "font": "500 17.2727px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(122, 90, 82)",
+     "cy": 795.1,
+     "gap": 0
+    },
+    {
+     "value": "g:95",
+     "text": null,
+     "font": "800 25.4546px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(165, 31, 38)",
+     "cy": 793.6,
+     "gap": 7.6
+    },
+    {
+     "value": null,
+     "text": "บาท",
+     "font": "500 17.2727px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(122, 90, 82)",
+     "cy": 795.1,
+     "gap": 7.6
+    }
+   ]
+  },
+  {
+   "align": "left",
+   "x": 1254.90625,
+   "limit": 1515.65625,
+   "pieces": [
+    {
+     "value": "kg:92.5",
+     "text": null,
+     "font": "800 41.8182px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(74, 25, 28)",
+     "cy": 744.1,
+     "gap": 0
+    },
+    {
+     "value": null,
+     "text": "บาท / กก.",
+     "font": "600 16.3636px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(43, 18, 20)",
+     "cy": 753.6,
+     "gap": 5.7
+    }
+   ]
+  },
+  {
+   "align": "left",
+   "x": 1254.90625,
+   "limit": 1515.65625,
+   "pieces": [
+    {
+     "value": null,
+     "text": "กรัมละ",
+     "font": "500 17.2727px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(122, 90, 82)",
+     "cy": 795.1,
+     "gap": 0
+    },
+    {
+     "value": "g:92.5",
+     "text": null,
+     "font": "800 25.4546px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(165, 31, 38)",
+     "cy": 793.6,
+     "gap": 7.6
+    },
+    {
+     "value": null,
+     "text": "บาท",
+     "font": "500 17.2727px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(122, 90, 82)",
+     "cy": 795.1,
+     "gap": 7.6
+    }
+   ]
+  },
+  {
+   "align": "left",
+   "x": 1579.65625,
+   "limit": 1840.40625,
+   "pieces": [
+    {
+     "value": "kg:90",
+     "text": null,
+     "font": "800 41.8182px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(74, 25, 28)",
+     "cy": 744.1,
+     "gap": 0
+    },
+    {
+     "value": null,
+     "text": "บาท / กก.",
+     "font": "600 16.3636px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(43, 18, 20)",
+     "cy": 753.6,
+     "gap": 5.7
+    }
+   ]
+  },
+  {
+   "align": "left",
+   "x": 1579.65625,
+   "limit": 1840.40625,
+   "pieces": [
+    {
+     "value": null,
+     "text": "กรัมละ",
+     "font": "500 17.2727px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(122, 90, 82)",
+     "cy": 795.1,
+     "gap": 0
+    },
+    {
+     "value": "g:90",
+     "text": null,
+     "font": "800 25.4546px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(165, 31, 38)",
+     "cy": 793.6,
+     "gap": 7.6
+    },
+    {
+     "value": null,
+     "text": "บาท",
+     "font": "500 17.2727px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(122, 90, 82)",
+     "cy": 795.1,
+     "gap": 7.6
+    }
+   ]
+  },
+  {
+   "align": "left",
+   "x": 930.15625,
+   "limit": 1190.90625,
+   "pieces": [
+    {
+     "value": "kg:70",
+     "text": null,
+     "font": "800 41.8182px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(74, 25, 28)",
+     "cy": 927.5,
+     "gap": 0
+    },
+    {
+     "value": null,
+     "text": "บาท / กก.",
+     "font": "600 16.3636px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(43, 18, 20)",
+     "cy": 937,
+     "gap": 5.7
+    }
+   ]
+  },
+  {
+   "align": "left",
+   "x": 930.15625,
+   "limit": 1190.90625,
+   "pieces": [
+    {
+     "value": null,
+     "text": "กรัมละ",
+     "font": "500 17.2727px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(122, 90, 82)",
+     "cy": 978.5,
+     "gap": 0
+    },
+    {
+     "value": "g:70",
+     "text": null,
+     "font": "800 25.4546px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(165, 31, 38)",
+     "cy": 977,
+     "gap": 7.6
+    },
+    {
+     "value": null,
+     "text": "บาท",
+     "font": "500 17.2727px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(122, 90, 82)",
+     "cy": 978.5,
+     "gap": 7.6
+    }
+   ]
+  },
+  {
+   "align": "left",
+   "x": 1254.90625,
+   "limit": 1515.65625,
+   "pieces": [
+    {
+     "value": "kg:50",
+     "text": null,
+     "font": "800 41.8182px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(74, 25, 28)",
+     "cy": 927.5,
+     "gap": 0
+    },
+    {
+     "value": null,
+     "text": "บาท / กก.",
+     "font": "600 16.3636px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(43, 18, 20)",
+     "cy": 937,
+     "gap": 5.7
+    }
+   ]
+  },
+  {
+   "align": "left",
+   "x": 1254.90625,
+   "limit": 1515.65625,
+   "pieces": [
+    {
+     "value": null,
+     "text": "กรัมละ",
+     "font": "500 17.2727px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(122, 90, 82)",
+     "cy": 978.5,
+     "gap": 0
+    },
+    {
+     "value": "g:50",
+     "text": null,
+     "font": "800 25.4546px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(165, 31, 38)",
+     "cy": 977,
+     "gap": 7.6
+    },
+    {
+     "value": null,
+     "text": "บาท",
+     "font": "500 17.2727px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(122, 90, 82)",
+     "cy": 978.5,
+     "gap": 7.6
+    }
+   ]
+  },
+  {
+   "align": "left",
+   "x": 1579.65625,
+   "limit": 1840.40625,
+   "pieces": [
+    {
+     "value": "kg:30",
+     "text": null,
+     "font": "800 41.8182px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(74, 25, 28)",
+     "cy": 927.5,
+     "gap": 0
+    },
+    {
+     "value": null,
+     "text": "บาท / กก.",
+     "font": "600 16.3636px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(43, 18, 20)",
+     "cy": 937,
+     "gap": 5.7
+    }
+   ]
+  },
+  {
+   "align": "left",
+   "x": 1579.65625,
+   "limit": 1840.40625,
+   "pieces": [
+    {
+     "value": null,
+     "text": "กรัมละ",
+     "font": "500 17.2727px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(122, 90, 82)",
+     "cy": 978.5,
+     "gap": 0
+    },
+    {
+     "value": "g:30",
+     "text": null,
+     "font": "800 25.4546px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(165, 31, 38)",
+     "cy": 977,
+     "gap": 7.6
+    },
+    {
+     "value": null,
+     "text": "บาท",
+     "font": "500 17.2727px \"Public Sans\", Anuphan, \"Noto Sans Thai\", Tahoma, sans-serif",
+     "color": "rgb(122, 90, 82)",
+     "cy": 978.5,
+     "gap": 7.6
+    }
+   ]
+  }
+ ],
+ "clock": {
+  "right": 1832,
+  "timeCy": 110.3,
+  "dateCy": 163.7
+ }
+}

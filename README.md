@@ -17,3 +17,4 @@ Mobile page (for customers): https://goldsilver00.github.io/price/m/
 Single-page TV links (same board as the main link, which still switches between both pages):
 - silver only: https://goldsilver00.github.io/price/silver/ (?only=silver)
 - platinum only: https://goldsilver00.github.io/price/platinum/ (?only=platinum)
+- everything on one screen (no switching): https://goldsilver00.github.io/price/all/ (?only=all; all-blank.jpg + all-layout.json from render.py, board.html?page=all)

@@ -20,9 +20,11 @@ const CLOCK_BOX = { right: 1830, timeY: 185, dateY: 222 };   /* inside the red b
 const cv = document.getElementById("tv"), ctx = cv.getContext("2d");
 const stamp = Date.now();
 let images = [], cur = 0;
-/* ?only=silver or ?only=platinum (the /silver/ and /platinum/ links) show one page only, without switching */
+/* ?only=silver / ?only=platinum (the /silver/ and /platinum/ links) show one page only, without switching;
+   ?only=all (the /all/ link) shows the one-screen page with platinum group and silver together */
 const ONLY = new URLSearchParams(location.search).get("only") || "";
 if (ONLY === "silver") cur = 1;
+if (ONLY === "all") cur = 2;
 
 function fit(){
   const w = window.innerWidth, h = window.innerHeight, k = Math.min(w / 1920, h / 1080);
@@ -55,6 +57,7 @@ const fmt2dp = n => Number.isInteger(n) ? n.toLocaleString("en-US") : n.toLocale
 const fmtKg = n => fmt2dp(Math.round(n * 100) / 100);
 const fmtG = n => fmt2dp(Math.round(n * 100) / 100);
 let silverBase = null, silverLayout = null, pgmImg = null, silverImg = null, sheetUrl = "";
+let allLayout = null, allImg = null;
 
 /* silver: the shop types the 99.99% price; every grade = that x percent (no rounding) */
 function silverValues(){
@@ -63,11 +66,11 @@ function silverValues(){
   const out = {}; for (const k in v) out[k] = k.startsWith("kg:") ? fmtKg(v[k]) : fmtG(v[k]);
   return out;
 }
-function drawSilverNumbers(){
-  if (!silverLayout || silverBase == null) return;
+function drawSilverNumbers(layout){
+  if (!layout || silverBase == null) return;
   const vals = silverValues();
   ctx.textBaseline = "middle"; ctx.textAlign = "left";
-  silverLayout.lines.forEach(line => {
+  layout.lines.forEach(line => {
     const parts = line.pieces.map(p => ({...p, str: p.value ? vals[p.value] : p.text}));
     let scale = 1;
     const width = () => parts.reduce((w, p, i) => { ctx.font = p.font.replace(/([\d.]+)px/, (m, n) => (n * scale) + "px"); return w + (i ? p.gap * scale : 0) + ctx.measureText(p.str).width; }, 0);
@@ -88,18 +91,21 @@ function drawSilverNumbers(){
 
 /* redefine draw: page 0 = platinum group image, page 1 = silver template + typed numbers */
 draw = function(){
-  const img = cur === 0 ? pgmImg : silverImg;
+  const img = [pgmImg, silverImg, allImg][cur];
   if (!img) return;
   ctx.drawImage(img, 0, 0, 1920, 1080);
-  if (cur === 1) drawSilverNumbers();
+  if (cur === 1) drawSilverNumbers(silverLayout);
+  if (cur === 2) drawSilverNumbers(allLayout);
   const d = new Date();
   const t = d.toLocaleTimeString("th-TH", {hour:"2-digit", minute:"2-digit", timeZone:"Asia/Bangkok"});
   const ds = d.toLocaleDateString("th-TH", {weekday:"long", day:"numeric", month:"long", year:"numeric", timeZone:"Asia/Bangkok"});
-  ctx.textAlign = "right"; ctx.textBaseline = "alphabetic";
+  ctx.textAlign = "right";
+  const c = cur === 2 && allLayout && allLayout.clock;   /* the one-screen page has its clock box in a different place */
+  ctx.textBaseline = c ? "middle" : "alphabetic";
   ctx.fillStyle = "#ffffff"; ctx.font = '700 64px "LHClock", Georgia, serif';
-  ctx.fillText(t, CLOCK_BOX.right, CLOCK_BOX.timeY);
+  ctx.fillText(t, c ? c.right : CLOCK_BOX.right, c ? c.timeCy : CLOCK_BOX.timeY);
   ctx.fillStyle = "#ffe9b0"; ctx.font = '600 21px "LHDate", Tahoma, sans-serif';
-  ctx.fillText(ds, CLOCK_BOX.right, CLOCK_BOX.dateY);
+  ctx.fillText(ds, c ? c.right : CLOCK_BOX.right, c ? c.dateCy : CLOCK_BOX.dateY);
 };
 
 async function fetchText(u){ const r = await fetch(u, {cache:"no-store"}); if (!r.ok) throw new Error(r.status); return r.text(); }
@@ -114,6 +120,12 @@ async function refreshSilverPrice(){
 
 async function refreshImages(){
   const t = Date.now();
+  if (ONLY === "all"){
+    const a = await load("all-blank.jpg", t);
+    try{ allLayout = JSON.parse(await fetchText("all-layout.json?t=" + t)); }catch(e){}
+    if (a) allImg = a;
+    draw(); return;
+  }
   const [p, s] = await Promise.all([load("pgm.jpg", t), load("silver-blank.jpg", t)]);
   try{ silverLayout = JSON.parse(await fetchText("silver-layout.json?t=" + t)); }catch(e){}
   if (p) pgmImg = p; if (s) silverImg = s;

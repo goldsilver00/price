@@ -2,16 +2,18 @@
 
 pgm.jpg            platinum / palladium / rhodium page (prices baked in)
 silver-blank.jpg   silver page without the numbers
-silver-layout.json where and how index.html draws the silver numbers (the shop types the 99.99% price)"""
+silver-layout.json where and how index.html draws the silver numbers (the shop types the 99.99% price)
+all-blank.jpg      one-screen page (Pt/Pd/Rh + silver, for the /all/ link) without the silver numbers
+all-layout.json    silver numbers + clock position for that page"""
 import json, pathlib
 from playwright.sync_api import sync_playwright
 
 here = pathlib.Path(__file__).resolve().parent
 url = (here / "board.html").as_uri() + "?render=1"
 
-COLLECT = r"""() => {
+COLLECT = r"""(page) => {
   const lines = [];
-  document.querySelectorAll('#pageSilver [data-line]').forEach(line => {
+  document.querySelectorAll(page + ' [data-line]').forEach(line => {
     const pieces = []; let prevRight = null;
     [...line.children].forEach(el => {
       const r = el.getBoundingClientRect(), cs = getComputedStyle(el);
@@ -32,7 +34,10 @@ COLLECT = r"""() => {
     const limit = line.dataset.line === "right" ? br.left + parseFloat(bs.paddingLeft) : br.right - parseFloat(bs.paddingRight);
     lines.push({ align: line.dataset.line, x: line.dataset.line === "right" ? last.right : first.left, limit, pieces });
   });
-  return lines;
+  const t = document.querySelector(page + ' .clock .time'), d = document.querySelector(page + ' .clock .date');
+  const box = t.parentElement.getBoundingClientRect(), pr = parseFloat(getComputedStyle(t.parentElement).paddingRight);
+  const mid = el => { const r = el.getBoundingClientRect(); return Math.round((r.top + r.height / 2) * 10) / 10; };
+  return { lines, clock: { right: Math.round(box.right - pr), timeCy: mid(t), dateCy: mid(d) } };
 }"""
 
 with sync_playwright() as p:
@@ -45,11 +50,18 @@ with sync_playwright() as p:
     page.keyboard.press("ArrowRight")
     page.wait_for_timeout(1500)
     page.screenshot(path=str(here / "silver-preview.jpg"), type="jpeg", quality=80)
-    layout = page.evaluate(COLLECT)
+    layout = page.evaluate(COLLECT, "#pageSilver")
     page.evaluate("document.documentElement.classList.add('render-blank')")
     page.wait_for_timeout(300)
     page.screenshot(path=str(here / "silver-blank.jpg"), type="jpeg", quality=92)
+    page.goto(url + "&page=all")
+    page.wait_for_timeout(2500)
+    all_layout = page.evaluate(COLLECT, "#pageCombo")
+    page.evaluate("document.documentElement.classList.add('render-blank')")
+    page.wait_for_timeout(300)
+    page.screenshot(path=str(here / "all-blank.jpg"), type="jpeg", quality=92)
     browser.close()
 
-(here / "silver-layout.json").write_text(json.dumps({"lines": layout}, ensure_ascii=False, indent=1), encoding="utf-8")
-print("rendered pgm.jpg, silver-blank.jpg, silver-layout.json")
+(here / "silver-layout.json").write_text(json.dumps({"lines": layout["lines"]}, ensure_ascii=False, indent=1), encoding="utf-8")
+(here / "all-layout.json").write_text(json.dumps(all_layout, ensure_ascii=False, indent=1), encoding="utf-8")
+print("rendered pgm.jpg, silver-blank.jpg, silver-layout.json, all-blank.jpg, all-layout.json")
