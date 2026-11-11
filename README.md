@@ -13,3 +13,5 @@ Mobile page (for customers): https://goldsilver00.github.io/price/m/
 - gold bar: read live in the browser from api.chnwt.dev/thai-gold-api (a mirror of สมาคมค้าทองคำ; goldtraders.or.th itself blocks other websites and GitHub). gold.py + .github/workflows/gold-price.yml keep a copy in gold.json every 5 min (08:00-18:00) as a fallback
 - Pt/Pd/Rh: prices.json, written by update.py each morning (same numbers as the TV)
 - silver: the same Google Sheet as the TV
+
+Silver-only TV link: https://goldsilver00.github.io/price/silver/ (same board as the main link, fixed on the silver page; also works as ?only=silver)
