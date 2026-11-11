@@ -1,8 +1,8 @@
 {
- "barBuy": 64200.0,
- "barSell": 64400.0,
- "seq": 4,
+ "barBuy": 64400.0,
+ "barSell": 64600.0,
+ "seq": 8,
  "date": "11/11/2569",
- "time": "10:11",
+ "time": "12:36",
  "source": "goldtraders.or.th"
 }
