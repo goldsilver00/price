@@ -1,26 +1,26 @@
 {
- "asOf": "20 พ.ย. 2569",
+ "asOf": "21 พ.ย. 2569",
  "metals": [
   {
    "key": "platinum",
    "th": "แพลตินัม",
    "en": "Platinum",
    "sym": "Pt",
-   "pricePerGram": 1144
+   "pricePerGram": 1130
   },
   {
    "key": "palladium",
    "th": "แพลเลเดียม",
    "en": "Palladium",
    "sym": "Pd",
-   "pricePerGram": 765
+   "pricePerGram": 763
   },
   {
    "key": "rhodium",
    "th": "โรเดียม",
    "en": "Rhodium",
    "sym": "Rh",
-   "pricePerGram": 5598
+   "pricePerGram": 5549
   }
  ]
 }
